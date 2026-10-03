@@ -1,0 +1,39 @@
+---
+title: ES 模块
+seq: 6
+parent: db
+summary: 加载方式升级：五个按序 script 标签与全局变量，换成一个 module 入口与 import/export
+entry: index.html
+runtime: static
+---
+
+# ES 模块
+
+## 本版本引入的概念
+
+**ES 模块**（浏览器原生支持的代码组织方式）：文件之间用 `import` / `export` 声明依赖，HTML 里只剩一个带 `type="module"` 的入口标签。
+
+先看上一版的问题：`index.html` 里挂着 5 个 script 标签，必须按依赖顺序排列（ejs → 路由 → 视图 → 数据 → 控制器），谁依赖谁只体现在书写顺序里，写错顺序就报错；所有函数都活在全局命名空间，重名即互相覆盖。文件越多，这个问题越重。
+
+本版把依赖关系写进代码本身：
+
+- `lib/db.js` 尾部一行 `export { db_all, db_find, db_create, db_update, db_destroy }`——数据层合同显式声明「我提供这五个函数」
+- `app.js` 顶部 `import { db_all, ... } from './lib/db.js'`——控制器显式声明「我用谁」
+- 外部依赖 ejs 不再随版本自带 52K 拷贝：`import ejs from 'ejs'` 经 import map 解析——`index.html` 里那段 `<script type="importmap">` 把名字 `'ejs'` 指向 CDN 地址。这是浏览器原生的零构建写法：下载本版代码，起任意静态服务器（如 `python3 -m http.server`）就能跑，不需要任何打包工具。本教学环境在构建时把 CDN 条目改写为本地镜像，所以在线运行不访问外网
+
+功能与 05 完全相同，这是纯粹的结构升级，diff 里没有任何业务变更。但有一个被迫的小改动：模块代码自动开启**严格模式**（更严格的 JS 规则集），不允许给没声明的变量赋值——旧代码里 `data = db_all()` 这种不写 `let` 的赋值，以前会悄悄创建全局变量，现在直接报错。所以 diff 里多了一批 `let`，这不是功能变更，是严格模式要求把原本就该写的声明补上。另有一个隐性改善：module 脚本在 DOM 解析完成后才执行，`#main` 必然已存在，不再依赖时序碰运气。
+
+## 操作
+
+- 功能照旧：列表、新增、编辑、删除
+- 对照与 `db` 的 diff：每个文件只多了 import/export 行；`lib/ejs.js` 从文件树消失
+- 打开浏览器 devtools 的 Network 面板再运行：ejs 从本地 vendor 目录加载，全程不访问外网
+- 源码里的 import map 写的是 CDN 地址；教学环境展示的运行副本已被改写为本地镜像（运行窗口内右键查看源代码可见改写标记）
+
+## 局限
+
+- 数据仍在内存：刷新即失（下一版解决）
+
+## 思考
+
+模块整份代码只加载一次，模块顶层的变量天然是「全文件共享、外面看不见」——上一版 `db.js` 里那个裸露的 `db` 对象，现在还有人能碰到吗？
