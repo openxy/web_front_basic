@@ -125,56 +125,50 @@
   runtime: static
   edit_run: false
 
-- slug: table-row/staic
-  title: 静态名单页
-  summary: 项目起点：一张纯静态的三行名单表格，删除按钮只是摆设，还没有任何 JS
-  seq: 0.5
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: table-row/inline
-  title: 行内 onclick
-  summary: 最原始的事件绑定：HTML 属性即监听器，参数即字面量
+- slug: table-row/static
+  title: 静态表格
+  summary: 项目起点：四列表头加空 tbody 的静态骨架，「增加一行」只是跳锚点的摆设，页面没有一行 JS
   seq: 1
-  parent: table-row/staic
   entry: index.html
   runtime: static
-  edit_run: true
 
-- slug: table-row/loop-fail
-  title: 循环绑定的陷阱
-  summary: 失败分支：for + var 循环绑 onclick，闭包捕获终值 + 新增行无监听，删除功能整体失效
-  seq: 1.01
-  parent: inline
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: table-row/delegation
-  title: 事件委托
-  summary: 一个监听器挂 tbody 靠冒泡接管所有行的点击：新增行天然可用，删除不依赖索引
+- slug: table-row/add-row
+  title: 增加一行
+  summary: jQuery 经 import map 入场，「增加一行」走行内 onclick 进 AddRow：行由 HTML 字符串拼出 append 进 tbody
   seq: 2
-  parent: inline
+  parent: table-row/static
   entry: index.html
   runtime: static
-  edit_run: true
 
-- slug: table-row/split-1
-  title: 动态事件 · 点击编辑
-  summary: 在事件委托版的基础上给数据单元格加「点击即编辑」：td 原地换成 input，回车或失焦提交，空值拦下。核心概念是动态绑定——input 在点击前不存在、新 td 是白纸，监听器改为元素诞生那一刻逐个挂上；替换即失忆，重生必重绑。
+- slug: table-row/remove-row
+  title: 删除一行
+  summary: 生成串里的删除链接接上 onclick='RemoveRow(this)'：this 即被点元素，parent().parent() 两级上溯删掉所在行
   seq: 3
-  parent: table-row/delegation
+  parent: table-row/add-row
   entry: index.html
   runtime: static
-  edit_run: true
 
-- slug: table-row/dy-event
-  title: 动态事件
-  summary: 版本收窄为只讲「解绑」：新增一行 input.onblur = null，在 input 被移出文档前摘掉失焦监听，防止移除聚焦元素引发的失焦把 commitEdit 再调一次；点击编辑与动态绑定已移入上一版。
+- slug: table-row/edit-cell
+  title: 点击编辑
+  summary: 数据单元格接上 ChangeCell：td 原地 replaceWith 成 input 并聚焦——替换即失忆，新元素是白纸
   seq: 4
-  parent: table-row/split-1
+  parent: table-row/remove-row
   entry: index.html
   runtime: static
-  edit_run: true
+
+- slug: table-row/blur-commit
+  title: 失焦提交
+  summary: input 失焦进 UpdateCell：非空换回 td（onclick 必须写回生成串——重生必重绑），空值拦下红字提示
+  seq: 5
+  parent: table-row/edit-cell
+  entry: index.html
+  runtime: static
+
+- slug: table-row/enter-commit
+  title: 回车提交
+  summary: 补上原课程 todo：回车让 input 真正失焦一次，提交仍走 UpdateCell 一条路，不另写第二套提交逻辑
+  seq: 6
+  parent: table-row/blur-commit
+  entry: index.html
+  runtime: static
 

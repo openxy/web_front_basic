@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>表格行操作 · 回车提交</title>
+        <!-- 外部依赖经 import map 解析（浏览器原生零构建写法，下载后起任意静态服务器即可运行；
+             教学运行环境会把 CDN 条目改写为本地镜像，离线运行） -->
+        <script type="importmap">
+        {
+          "imports": {
+            "jquery": "https://cdn.jsdelivr.net/npm/jquery@3.7.1/+esm"
+          }
+        }
+        </script>
+        <script type="module">
+          // 桥：课程代码是传统全局风格（行内 onclick + 普通脚本），把模块导入的 jQuery 挂到 window 供全页使用
+          import $ from 'jquery';
+          window.$ = $;
+        </script>
+    </head>
+    <body>
+        <div class="info" style='color:red'></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>栏目一</th>
+                    <th>栏目二</th>
+                    <th>栏目三</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <a href="#" id="add" onclick="AddRow();">增加一行</a>
+        <script type="text/javascript">
+            var row_last_num = 0;
+
+            function AddRow(){
+                row_last_num += 1;
+                $("tbody").append("<tr id='tr" + row_last_num + "'>" +
+                                    "<td onclick='ChangeCell(this);'>栏目一数据1</td>" +
+                                    "<td onclick='ChangeCell(this);'>栏目二数据2</td>" +
+                                    "<td onclick='ChangeCell(this);'>栏目三数据3</td>" +
+                                    "<td><a href='#' class='remove' onclick='RemoveRow(this);'>删除</a></td></tr>");
+            }
+
+            function RemoveRow(o){
+                $(o).parent().parent().remove();
+            }
+
+            //改变标签类型为<input>
+            function ChangeCell(o){
+                $(o).replaceWith("<input type='text' class='current' onblur='UpdateCell(event);' onkeydown='EnterCell(event);'>");
+                $("input.current").focus();
+            }
+
+            //修改标签类型为<td>并且将input中的值赋给该标签的text
+            function UpdateCell(event){
+                var o = event.target;
+                var elem = $(o);
+                var temp = elem.val();
+                var info = '';
+                if(temp && temp != "" ){
+                    elem.replaceWith("<td onclick='ChangeCell(this);'>" + temp + "</td>");
+                }else{
+                    //alert("字段不得为空！");
+                    //event.preventDefault();
+                    //event.stopPropagation
+                    elem.focus();
+                    info = '字段不得为空！';
+                }
+                $('.info').text(info);
+            }
+
+            //回车完成输入：让输入框真正失焦一次，提交仍走 UpdateCell 这同一条路
+            function EnterCell(event){
+                if(event.key === "Enter"){
+                    event.target.blur();
+                }
+            }
+        </script>
+    </body>
+</html>
