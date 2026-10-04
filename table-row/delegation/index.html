@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>表格行操作 · 事件委托</title>
+    </head>
+    <body>
+        <div class="info" style='color:red'></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>栏目一</th>
+                    <th>栏目二</th>
+                    <th>栏目三</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <a href="#" id="add">增加一行</a>
+        <script>
+            const add = document.getElementById('add');
+            const tbody = document.querySelector('tbody');
+
+            // 事件绑定：上一版的概念，行为照旧
+            add.addEventListener('click', (event) => {
+                event.preventDefault();
+                addRow();
+            });
+
+            // 事件委托：监听器只挂 tbody 一个，靠事件冒泡接住任何行的点击（含未来新增的行）。
+            // 事件对象 event.target = 实际被点的元素；closest 沿祖先链向上找到第一个匹配者
+            tbody.addEventListener('click', (event) => {
+                const link = event.target.closest('.remove');
+                if (!link) return; // 点的不是删除链接，不管
+                event.preventDefault(); // 生成的链接同样带 href="#"，同样拦下
+                link.closest('tr').remove(); // 从链接向上找到所属行：行删自己，不问第几行
+            });
+
+            // 元素插入：模板字符串拼一行 HTML，insertAdjacentHTML 接在 tbody 现有内容之后
+            function addRow() {
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr>
+                      <td>栏目一数据1</td>
+                      <td>栏目二数据2</td>
+                      <td>栏目三数据3</td>
+                      <td><a href="#" class="remove">删除</a></td>
+                    </tr>`);
+            }
+        </script>
+    </body>
+</html>

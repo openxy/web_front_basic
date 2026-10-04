@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>表格行操作 · 动态事件</title>
+    </head>
+    <body>
+        <div class="info" style='color:red'></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>栏目一</th>
+                    <th>栏目二</th>
+                    <th>栏目三</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <a href="#" id="add">增加一行</a>
+        <script>
+            const add = document.getElementById('add');
+            const tbody = document.querySelector('tbody');
+            const info = document.querySelector('.info');
+
+            // 事件绑定：第一版的概念，行为照旧
+            add.addEventListener('click', (event) => {
+                event.preventDefault();
+                addRow();
+            });
+
+            // 事件委托：一个监听器管所有行的点击（click 会冒泡，tbody 接得住）
+            tbody.addEventListener('click', (event) => {
+                const link = event.target.closest('.remove');
+                if (link) {
+                    event.preventDefault();
+                    link.closest('tr').remove();
+                    return;
+                }
+                const td = event.target.closest('td.edit');
+                if (td) changeCell(td);
+            });
+
+            // 元素插入：数据单元格带上 .edit 标记（可编辑），操作列不带
+            function addRow() {
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr>
+                      <td class="edit">栏目一数据1</td>
+                      <td class="edit">栏目二数据2</td>
+                      <td class="edit">栏目三数据3</td>
+                      <td><a href="#" class="remove">删除</a></td>
+                    </tr>`);
+            }
+
+            // 元素替换 + 动态事件：replaceWith 换上 input 的同时，把失焦提交绑上去——
+            // blur 不冒泡，永远到不了 tbody，委托不了，只能在元素诞生这一刻绑
+            function changeCell(td) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = td.textContent;
+                input.addEventListener('blur', () => updateCell(input));
+                td.replaceWith(input);
+                input.focus();
+            }
+
+            // 失焦提交：非空换回 td（td 的点击走 tbody 委托，无需重绑），空值拦下不放行
+            function updateCell(input) {
+                const text = input.value.trim();
+                if (text === '') {
+                    info.textContent = '字段不得为空！';
+                    input.focus(); // 焦点抢回，编辑不结束
+                    return;
+                }
+                const td = document.createElement('td');
+                td.className = 'edit';
+                td.textContent = text;
+                input.replaceWith(td);
+                info.textContent = '';
+            }
+        </script>
+    </body>
+</html>

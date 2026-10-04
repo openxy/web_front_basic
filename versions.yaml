@@ -125,50 +125,42 @@
   runtime: static
   edit_run: false
 
-- slug: table-row/static
-  title: 静态表格
-  summary: 项目起点：四列表头加空 tbody 的静态骨架，「增加一行」只是跳锚点的摆设，页面没有一行 JS
+- slug: table-row/event-bind
+  title: 事件绑定
+  summary: addEventListener 把「增加一行」接上行为：事件对象上 preventDefault 拦下锚点跳转，insertAdjacentHTML 把拼好的一行塞进 tbody
   seq: 1
   entry: index.html
   runtime: static
 
-- slug: table-row/add-row
-  title: 增加一行
-  summary: jQuery 经 import map 入场，「增加一行」走行内 onclick 进 AddRow：行由 HTML 字符串拼出 append 进 tbody
+- slug: table-row/delegation
+  title: 事件委托
+  summary: 删除不再逐个绑：监听器只挂 tbody 一个，靠事件冒泡接住所有行的点击，event.target + closest 定位链接与所属行，新增行天然被覆盖
   seq: 2
-  parent: table-row/static
+  parent: table-row/event-bind
   entry: index.html
   runtime: static
 
-- slug: table-row/remove-row
-  title: 删除一行
-  summary: 生成串里的删除链接接上 onclick='RemoveRow(this)'：this 即被点元素，parent().parent() 两级上溯删掉所在行
+- slug: table-row/element-replace
+  title: 元素替换
+  summary: 委托扩展到数据单元格：closest 甄别可编辑 td，replaceWith 原地换成带原文字的 input 并聚焦——位置不变，身份变了
   seq: 3
-  parent: table-row/add-row
+  parent: table-row/delegation
   entry: index.html
   runtime: static
 
-- slug: table-row/edit-cell
-  title: 点击编辑
-  summary: 数据单元格接上 ChangeCell：td 原地 replaceWith 成 input 并聚焦——替换即失忆，新元素是白纸
+- slug: table-row/dynamic-event
+  title: 动态事件
+  summary: blur 不冒泡、委托不了，失焦提交只能在 input 诞生那刻动态绑上；空值拦下红字提示，提交换回 td——点击走委托，无需重绑
   seq: 4
-  parent: table-row/remove-row
+  parent: table-row/element-replace
   entry: index.html
   runtime: static
 
-- slug: table-row/blur-commit
-  title: 失焦提交
-  summary: input 失焦进 UpdateCell：非空换回 td（onclick 必须写回生成串——重生必重绑），空值拦下红字提示
+- slug: table-row/keyboard-event
+  title: 键盘事件
+  summary: keydown 里判 event.key，回车主动 blur() 制造一次真失焦——触发路两条，提交路仍只有 blur 一条
   seq: 5
-  parent: table-row/edit-cell
-  entry: index.html
-  runtime: static
-
-- slug: table-row/enter-commit
-  title: 回车提交
-  summary: 补上原课程 todo：回车让 input 真正失焦一次，提交仍走 UpdateCell 一条路，不另写第二套提交逻辑
-  seq: 6
-  parent: table-row/blur-commit
+  parent: table-row/dynamic-event
   entry: index.html
   runtime: static
 
