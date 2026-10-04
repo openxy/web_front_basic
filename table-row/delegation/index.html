@@ -19,12 +19,13 @@
         </table>
         <a href="#" id="add">增加一行</a>
         <script>
+            // 事件绑定：addEventListener(事件名, 回调)——监听器挂在元素上，点击发生时回调被调用。
+            // 原课程把 onclick 写在 HTML 属性里；现代写法结构与行为分离，行为全部收进脚本
             const add = document.getElementById('add');
             const tbody = document.querySelector('tbody');
 
-            // 事件绑定：上一版的概念，行为照旧
             add.addEventListener('click', (event) => {
-                event.preventDefault();
+                event.preventDefault(); // a 的默认行为是跳锚点，在事件对象上拦下
                 addRow();
             });
 

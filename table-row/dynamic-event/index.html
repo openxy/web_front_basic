@@ -19,29 +19,31 @@
         </table>
         <a href="#" id="add">增加一行</a>
         <script>
+            // 事件绑定：addEventListener(事件名, 回调)——监听器挂在元素上，点击发生时回调被调用。
+            // 原课程把 onclick 写在 HTML 属性里；现代写法结构与行为分离，行为全部收进脚本
             const add = document.getElementById('add');
             const tbody = document.querySelector('tbody');
             const info = document.querySelector('.info');
 
-            // 事件绑定：第一版的概念，行为照旧
             add.addEventListener('click', (event) => {
-                event.preventDefault();
+                event.preventDefault(); // a 的默认行为是跳锚点，在事件对象上拦下
                 addRow();
             });
 
-            // 事件委托：一个监听器管所有行的点击（click 会冒泡，tbody 接得住）
+            // 事件委托：监听器只挂 tbody 一个，靠事件冒泡接住任何行的点击（含未来新增的行）。
+            // 事件对象 event.target = 实际被点的元素；closest 沿祖先链向上找到第一个匹配者
             tbody.addEventListener('click', (event) => {
                 const link = event.target.closest('.remove');
                 if (link) {
-                    event.preventDefault();
-                    link.closest('tr').remove();
+                    event.preventDefault(); // 生成的链接同样带 href="#"，同样拦下
+                    link.closest('tr').remove(); // 从链接向上找到所属行：行删自己，不问第几行
                     return;
                 }
-                const td = event.target.closest('td.edit');
+                const td = event.target.closest('td.edit'); // 数据单元格带 .edit，操作列不带
                 if (td) changeCell(td);
             });
 
-            // 元素插入：数据单元格带上 .edit 标记（可编辑），操作列不带
+            // 元素插入：模板字符串拼一行 HTML，insertAdjacentHTML 接在 tbody 现有内容之后
             function addRow() {
                 tbody.insertAdjacentHTML('beforeend', `
                     <tr>
@@ -52,13 +54,13 @@
                     </tr>`);
             }
 
-            // 元素替换 + 动态事件：replaceWith 换上 input 的同时，把失焦提交绑上去——
-            // blur 不冒泡，永远到不了 tbody，委托不了，只能在元素诞生这一刻绑
+            // 元素替换：replaceWith 原地换下 td、换上 input——位置不变，身份变了。
+            // 原文字先拷进 input，编辑不是从零重写（原课程的 input 是空的）
             function changeCell(td) {
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.value = td.textContent;
-                input.addEventListener('blur', () => updateCell(input));
+                input.addEventListener('blur', () => updateCell(input)); // blur 不冒泡，委托不了——只能在 input 诞生这一刻绑
                 td.replaceWith(input);
                 input.focus();
             }
