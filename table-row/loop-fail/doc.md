@@ -1,11 +1,3 @@
----
-title: 循环绑定的陷阱
-seq: 1.01
-parent: inline
-summary: 失败分支：for + var 循环绑 onclick，闭包捕获终值 + 新增行无监听，删除功能整体失效
-entry: index.html
-runtime: static
----
 
 # 循环绑定的陷阱（此路不通）
 

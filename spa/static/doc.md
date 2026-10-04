@@ -1,11 +1,3 @@
----
-title: 静态网站
-seq: 1
-parent: file
-summary: 用纯 HTML 多页面组织博客，每个页面一个文件，链接互相跳转
-entry: index.html
-runtime: static
----
 
 # 静态网站
 

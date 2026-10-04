@@ -1,11 +1,3 @@
----
-title: Ajax 与 REST API
-seq: 8
-parent: localstorage
-summary: 数据层经 fetch 调用 REST 接口（回调风格），前后端分离
-entry: index.html
-runtime: shim
----
 
 # Ajax 与 REST API
 

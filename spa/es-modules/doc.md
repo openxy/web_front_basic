@@ -1,11 +1,3 @@
----
-title: ES 模块
-seq: 6
-parent: db
-summary: 加载方式升级：五个按序 script 标签与全局变量，换成一个 module 入口与 import/export
-entry: index.html
-runtime: static
----
 
 # ES 模块
 

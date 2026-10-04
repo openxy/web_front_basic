@@ -1,12 +1,3 @@
----
-title: 构建工具 gulp
-seq: 10
-parent: async-await
-summary: 引入构建过程：gulp 压缩合并源码为 dist/app.js，页面只引构建产物
-entry: index.html
-runtime: static
-edit_run: false
----
 
 # 构建工具 gulp
 

@@ -1,11 +1,3 @@
----
-title: jquery 视图变体
-seq: 7.01
-parent: localstorage
-summary: `localstorage` 的分支：视图层换用 jQuery，与 es6 原生实现对照
-entry: index.html
-runtime: static
----
 
 # jquery 视图变体（`localstorage` 的分支）
 

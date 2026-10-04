@@ -1,11 +1,3 @@
----
-title: $.ajax 变体
-seq: 8.01
-parent: ajax-rest
-summary: `ajax-rest` 的分支：用 jQuery $.ajax 实现同一套 REST 数据层，与 fetch 版对照
-entry: index.html
-runtime: shim
----
 
 # $.ajax 变体（`ajax-rest` 的分支）
 

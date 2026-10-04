@@ -1,10 +1,3 @@
----
-title: 文件系统管理内容
-seq: 0
-summary: 前史：在没有任何 Web 技术时，用磁盘文件和目录管理博客内容
-entry: index.txt
-runtime: none
----
 
 # 文件系统管理内容
 

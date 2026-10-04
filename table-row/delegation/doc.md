@@ -1,11 +1,3 @@
----
-title: 事件委托
-seq: 2
-parent: inline
-summary: 一个监听器挂 tbody 靠冒泡接管所有行的点击：新增行天然可用，删除不依赖索引
-entry: index.html
-runtime: static
----
 
 # 事件委托
 

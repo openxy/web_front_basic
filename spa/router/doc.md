@@ -1,11 +1,3 @@
----
-title: 前端路由与单页应用
-seq: 3
-parent: template
-summary: 引入 hash 路由：URL 决定显示哪个视图，列表与详情共用一个 HTML
-entry: index.html
-runtime: static
----
 
 # 前端路由与单页应用（SPA）
 

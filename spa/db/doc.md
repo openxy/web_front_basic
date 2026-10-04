@@ -1,11 +1,3 @@
----
-title: 数据层抽象
-seq: 5
-parent: crud
-summary: 数据操作抽成 lib/db.js（内存实现），约定五个标准接口，控制器只管流程
-entry: index.html
-runtime: static
----
 
 # 数据层抽象
 

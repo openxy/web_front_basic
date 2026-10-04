@@ -1,11 +1,3 @@
----
-title: async/await
-seq: 9
-parent: ajax-rest
-summary: 数据层与控制器改为 async/await：异步代码写成同步的样子
-entry: index.html
-runtime: shim
----
 
 # async/await
 

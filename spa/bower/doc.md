@@ -1,12 +1,3 @@
----
-title: 包管理 bower
-seq: 10.01
-parent: gulp
-summary: 10 的分支：用 bower 自动安装前端依赖，构建时自动收集
-entry: index.html
-runtime: static
-edit_run: false
----
 
 # 包管理 bower（10 的分支）
 

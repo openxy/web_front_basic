@@ -1,0 +1,153 @@
+# 前端教学语料 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
+
+- slug: spa/file
+  title: 文件系统管理内容
+  summary: 前史：在没有任何 Web 技术时，用磁盘文件和目录管理博客内容
+  seq: 0
+  entry: index.txt
+  runtime: none
+  edit_run: true
+
+- slug: spa/static
+  title: 静态网站
+  summary: 用纯 HTML 多页面组织博客，每个页面一个文件，链接互相跳转
+  seq: 1
+  parent: file
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/template
+  title: 前端模板引擎
+  summary: 引入 ejs 模板：结构与数据分离，一份模板渲染任意数据
+  seq: 2
+  parent: static
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/router
+  title: 前端路由与单页应用
+  summary: 引入 hash 路由：URL 决定显示哪个视图，列表与详情共用一个 HTML
+  seq: 3
+  parent: template
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/crud
+  title: 完整增删改查（CRUD）
+  summary: 补齐新增/编辑/删除的路由与表单；数据操作仍内联在 app.js
+  seq: 4
+  parent: router
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/db
+  title: 数据层抽象
+  summary: 数据操作抽成 lib/db.js（内存实现），约定五个标准接口，控制器只管流程
+  seq: 5
+  parent: crud
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/es-modules
+  title: ES 模块
+  summary: 加载方式升级：五个按序 script 标签与全局变量，换成一个 module 入口与 import/export
+  seq: 6
+  parent: db
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/localstorage
+  title: 本地存储
+  summary: 数据层换成 localStorage：数据持久化，刷新不丢
+  seq: 7
+  parent: es-modules
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/jquery-view
+  title: jquery 视图变体
+  summary: `localstorage` 的分支：视图层换用 jQuery，与 es6 原生实现对照
+  seq: 7.01
+  parent: localstorage
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: spa/ajax-rest
+  title: Ajax 与 REST API
+  summary: 数据层经 fetch 调用 REST 接口（回调风格），前后端分离
+  seq: 8
+  parent: localstorage
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: spa/jquery-ajax
+  title: $.ajax 变体
+  summary: `ajax-rest` 的分支：用 jQuery $.ajax 实现同一套 REST 数据层，与 fetch 版对照
+  seq: 8.01
+  parent: ajax-rest
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: spa/async-await
+  title: async/await
+  summary: 数据层与控制器改为 async/await：异步代码写成同步的样子
+  seq: 9
+  parent: ajax-rest
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: spa/gulp
+  title: 构建工具 gulp
+  summary: 引入构建过程：gulp 压缩合并源码为 dist/app.js，页面只引构建产物
+  seq: 10
+  parent: async-await
+  entry: index.html
+  runtime: static
+  edit_run: false
+
+- slug: spa/bower
+  title: 包管理 bower
+  summary: 10 的分支：用 bower 自动安装前端依赖，构建时自动收集
+  seq: 10.01
+  parent: gulp
+  entry: index.html
+  runtime: static
+  edit_run: false
+
+- slug: table-row/inline
+  title: 行内 onclick
+  summary: 最原始的事件绑定：HTML 属性即监听器，参数即字面量
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/loop-fail
+  title: 循环绑定的陷阱
+  summary: 失败分支：for + var 循环绑 onclick，闭包捕获终值 + 新增行无监听，删除功能整体失效
+  seq: 1.01
+  parent: inline
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/delegation
+  title: 事件委托
+  summary: 一个监听器挂 tbody 靠冒泡接管所有行的点击：新增行天然可用，删除不依赖索引
+  seq: 2
+  parent: inline
+  entry: index.html
+  runtime: static
+  edit_run: true
+

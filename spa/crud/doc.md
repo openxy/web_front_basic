@@ -1,11 +1,3 @@
----
-title: 完整增删改查（CRUD）
-seq: 4
-parent: router
-summary: 补齐新增/编辑/删除的路由与表单；数据操作仍内联在 app.js
-entry: index.html
-runtime: static
----
 
 # 完整增删改查（CRUD）
 

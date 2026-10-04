@@ -1,11 +1,3 @@
----
-title: 前端模板引擎
-seq: 2
-parent: static
-summary: 引入 ejs 模板：结构与数据分离，一份模板渲染任意数据
-entry: index.html
-runtime: static
----
 
 # 前端模板引擎
 

@@ -1,10 +1,3 @@
----
-title: 行内 onclick
-seq: 1
-summary: 最原始的事件绑定：HTML 属性即监听器，参数即字面量
-entry: index.html
-runtime: static
----
 
 # 行内 onclick
 

@@ -1,11 +1,3 @@
----
-title: 本地存储
-seq: 7
-parent: es-modules
-summary: 数据层换成 localStorage：数据持久化，刷新不丢
-entry: index.html
-runtime: static
----
 
 # 本地存储
 
