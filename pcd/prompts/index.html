@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>省市区三级联动 · 提示项与索引偏移</title>
+</head>
+<body>
+  <h1>省市区三级联动</h1>
+  <p>
+    控件加一个可选的第三参：每级的提示项（「省份」「地级市」「区县」）。
+    提示项占据了选项 0 的位置，取索引路径时须整体减 1——别小看这一格偏移，
+    它是所有「列表头插提示」类控件共同的隐形税。
+  </p>
+
+  <select id="province"></select> 省
+  <select id="city"></select> 市
+  <select id="district"></select> 区县
+
+  <script src="pcd-data.js"></script>
+  <script src="pcd.js"></script>
+  <script>
+    new PCD(pcdData, ['province', 'city', 'district'], ['省份', '地级市', '区县']);
+  </script>
+</body>
+</html>

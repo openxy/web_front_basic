@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单与 Ajax · 失焦查重</title>
+  <style>
+    label { display: block; margin: 8px 0; }
+    .tip { color: red; font-size: 13px; margin-left: 8px; }
+    .tip.ok { color: green; }
+    #output { background: #f6f6f6; padding: 8px; min-height: 1.5em; white-space: pre-wrap; }
+    button[disabled] { color: #999; }
+  </style>
+</head>
+<body>
+  <h1>注册</h1>
+  <p>用户名是否被占用，只有服务器知道——不必等提交：输入框一失焦就问一次
+     <code>GET /users/名字</code>：200 表示已存在（红），404 表示不存在（绿）。
+     注册成功的名字再失焦一次，就变红了。</p>
+
+  <form id="register" action="/register" method="post">
+    <label>用户名 <input name="name" maxlength="10" autocomplete="off"><span class="tip"></span></label>
+    <label>密码 <input type="password" name="pwd1"></label>
+    <label>确认密码 <input type="password" name="pwd2"><span class="tip"></span></label>
+    <button type="submit">注册</button>
+  </form>
+  <pre id="output">（提交后这里先计数、后显示结果）</pre>
+
+  <script>
+    const form = document.getElementById('register');
+    const output = document.getElementById('output');
+    const API = 'http://localhost:3000';
+
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const checkName = (name) => /^[a-zA-Z][a-zA-Z0-9]*$/.test(name);
+    const checkPwd = (pwd1, pwd2) => !!pwd1 && pwd1 === pwd2;
+
+    function validate(data) {
+      const rules = [
+        [checkName(data.name), form.elements.name, '字母开头，只能字母数字'],
+        [checkPwd(data.pwd1, data.pwd2), form.elements.pwd2, '两次密码须一致且非空'],
+      ];
+      let ok = true;
+      for (const [pass, input, msg] of rules) {
+        input.closest('label').querySelector('.tip').textContent = pass ? '' : msg;
+        if (!pass) ok = false;
+      }
+      return ok;
+    }
+
+    // 失焦查重：blur 事件问一次接口，状态码即答案（200=已占用，404=可用）
+    form.elements.name.addEventListener('blur', async () => {
+      const name = form.elements.name.value.trim();
+      const tip = form.elements.name.closest('label').querySelector('.tip');
+      if (!checkName(name)) return; // 格式不对交给提交时的 validate，这里不重复报
+      const resp = await fetch(`${API}/users/${encodeURIComponent(name)}`);
+      const taken = resp.ok;
+      tip.textContent = taken ? `${name} 已被占用` : `${name} 可以注册`;
+      tip.classList.toggle('ok', !taken);
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      if (!validate(data)) {
+        output.textContent = '校验未通过，请求未发出';
+        return;
+      }
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      let seconds = 0;
+      const timer = setInterval(() => {
+        output.textContent = `提交中… 已等 ${++seconds} 秒（此刻还能改表单，页面没卡死）`;
+      }, 1000);
+      try {
+        await wait(2000);
+        const resp = await fetch(API + '/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: data.name, password: data.pwd1 }),
+        });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const user = await resp.json();
+        output.textContent = '注册成功：' + user.id;
+      } catch (err) {
+        output.textContent = '提交失败：' + err.message;
+      } finally {
+        clearInterval(timer);
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

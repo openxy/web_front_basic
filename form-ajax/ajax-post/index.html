@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单与 Ajax · fetch 发送 JSON</title>
+  <style>
+    label { display: block; margin: 8px 0; }
+    #output { background: #f6f6f6; padding: 8px; min-height: 1.5em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>注册</h1>
+  <p>收集到的数据不再只给自己看：JSON 序列化后 POST 给接口
+     <code>http://localhost:3000/users</code>（在线运行的模拟层会拦截这个基址并应答），
+     服务端的回话显示在页面里——页面不刷新。</p>
+
+  <form id="register" action="/register" method="post">
+    <label>用户名 <input name="name" maxlength="10" autocomplete="off"></label>
+    <label>密码 <input type="password" name="pwd1"></label>
+    <label>确认密码 <input type="password" name="pwd2"></label>
+    <button type="submit">注册</button>
+  </form>
+  <pre id="output">（提交后这里显示服务端的应答）</pre>
+
+  <script>
+    const form = document.getElementById('register');
+    const output = document.getElementById('output');
+    const API = 'http://localhost:3000'; // 模拟层拦截的基址（版本目录 mock.json 声明）
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      fetch(API + '/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: data.name, password: data.pwd1 }), // 用户名即主键
+      })
+        .then((resp) => {
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          return resp.json(); // 应答体是 JSON，解析成对象
+        })
+        .then((user) => { output.textContent = '注册成功：' + user.id; })
+        .catch((err) => { output.textContent = '提交失败：' + err.message; });
+    });
+  </script>
+</body>
+</html>

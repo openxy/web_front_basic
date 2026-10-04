@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单与 Ajax · async/await 与异步</title>
+  <style>
+    label { display: block; margin: 8px 0; }
+    #output { background: #f6f6f6; padding: 8px; min-height: 1.5em; white-space: pre-wrap; }
+    button[disabled] { color: #999; }
+  </style>
+</head>
+<body>
+  <h1>注册</h1>
+  <p>慢网络下的注册：等待的 2 秒里计数器照走、表单照打字——异步代码在 await 处让出控制权，
+     页面不卡死。回调链（.then）同步改写成 async/await，读起来就是顺序的。</p>
+
+  <form id="register" action="/register" method="post">
+    <label>用户名 <input name="name" maxlength="10" autocomplete="off"></label>
+    <label>密码 <input type="password" name="pwd1"></label>
+    <label>确认密码 <input type="password" name="pwd2"></label>
+    <button type="submit">注册</button>
+  </form>
+  <pre id="output">（提交后这里先计数、后显示结果）</pre>
+
+  <script>
+    const form = document.getElementById('register');
+    const output = document.getElementById('output');
+    const API = 'http://localhost:3000';
+
+    // 模拟慢网络：原课程在服务端 sleep(8)，模拟层没有延迟，客户端自己等 2 秒
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      const btn = form.querySelector('button');
+      btn.disabled = true; // 防重复提交：等待期间按钮按不动
+      let seconds = 0;
+      const timer = setInterval(() => {
+        output.textContent = `提交中… 已等 ${++seconds} 秒（此刻还能改表单，页面没卡死）`;
+      }, 1000);
+      try {
+        await wait(2000); // 在这里让出控制权：下面的 fetch 要等它，页面其他一切不用等
+        const resp = await fetch(API + '/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: data.name, password: data.pwd1 }),
+        });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const user = await resp.json();
+        output.textContent = '注册成功：' + user.id;
+      } catch (err) {
+        output.textContent = '提交失败：' + err.message;
+      } finally {
+        clearInterval(timer); // 成败都得收的尾：停计数器、解禁按钮
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

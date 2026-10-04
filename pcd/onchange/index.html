@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>省市区三级联动 · onchange 联动</title>
+</head>
+<body>
+  <h1>省市区三级联动</h1>
+  <p>
+    选省即取数填市：选中项的序号就是索引路径的一段——河北省是第 3 项（<code>selectedIndex</code>
+    为 2），它的城市列表就在键 <code>"0_2"</code>。change 事件把两级下拉第一次联动起来。
+  </p>
+
+  <select id="province"></select> 省
+  <select id="city"></select> 市
+
+  <script src="pcd-data.js"></script>
+  <script>
+    const province = document.getElementById('province');
+    const city = document.getElementById('city');
+
+    function fillProvince() {
+      for (const name of pcdData['0']) province.add(new Option(name, name));
+    }
+
+    function fillCity() {
+      city.innerHTML = ''; // 清掉旧选项，否则越选越多
+      const cities = pcdData['0_' + province.selectedIndex] ?? [];
+      for (const name of cities) city.add(new Option(name, name));
+    }
+
+    // 用户改选省级：change 事件在选中项变化时触发
+    province.addEventListener('change', fillCity);
+
+    fillProvince();
+    fillCity(); // 初始：第 1 项北京市的城市
+  </script>
+</body>
+</html>

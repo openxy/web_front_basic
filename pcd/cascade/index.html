@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>省市区三级联动 · 三级级联</title>
+</head>
+<body>
+  <h1>省市区三级联动</h1>
+  <p>
+    填充不再各写各的，而是按层级递推：<code>fill(from)</code> 从第 <code>from</code> 级一路填到末级，
+    每级的键由前面各级的选中序号依次拼接。省变，市与区县全重刷；市变，只重刷区县。
+  </p>
+
+  <select id="province"></select> 省
+  <select id="city"></select> 市
+  <select id="district"></select> 区县
+
+  <script src="pcd-data.js"></script>
+  <script>
+    const ids = ['province', 'city', 'district'];
+    const sel = (i) => document.getElementById(ids[i]);
+
+    // 从第 from 级填到末级：第 v 级的键 = "0" + 前 v 级各自的选中序号
+    function fill(from) {
+      for (let v = from; v < ids.length; v++) {
+        let sid = '0';
+        for (let i = 0; i < v; i++) sid += '_' + sel(i).selectedIndex;
+        const names = pcdData[sid] ?? []; // 上级没选时键查不到，按空列表处理
+        sel(v).innerHTML = '';
+        for (const name of names) sel(v).add(new Option(name, name));
+      }
+    }
+
+    sel(0).addEventListener('change', () => fill(1)); // 省变：市、区县全重刷
+    sel(1).addEventListener('change', () => fill(2)); // 市变：只重刷区县
+
+    fill(0);
+  </script>
+</body>
+</html>

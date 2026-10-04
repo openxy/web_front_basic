@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>省市区三级联动 · 封装成控件</title>
+</head>
+<body>
+  <h1>省市区三级联动</h1>
+  <p>
+    三段过程代码收进 <code>pcd.js</code> 的 <code>class PCD</code>：构造器收数据与 id 列表，
+    自己绑事件、自己初始化。页面里一行调用，三个空 select 就活了。
+  </p>
+
+  <select id="province"></select> 省
+  <select id="city"></select> 市
+  <select id="district"></select> 区县
+
+  <script src="pcd-data.js"></script>
+  <script src="pcd.js"></script>
+  <script>
+    new PCD(pcdData, ['province', 'city', 'district']);
+  </script>
+</body>
+</html>

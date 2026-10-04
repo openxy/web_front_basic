@@ -13,12 +13,49 @@
 
 ## 怎么用
 
-- 项目内每个目录是一个版本，目录名即版本名（slug）；顺序与挂靠关系见各版 `doc.md` 开头的 frontmatter（`seq` / `parent`，`parent` 写同项目内的 slug）
+- 项目内每个目录是一个版本，目录名即版本名（slug）；顺序与挂靠关系见仓根 `versions.yaml`（结构元信息唯一事实源；`parent` 写同项目内的 slug）
 - 任一版本目录都可独立运行：下载该目录，起任意静态服务器（如 `python3 -m http.server`）即可——例如 `spa/es-modules/` 的外部依赖经 import map 指 CDN，浏览器原生零构建
 
 ## 文件名跨版本统一
 
 同一项目内，同类文件在所有版本中同名（`lib/db.js`、`app.js`、`index.html`、`lib/view.js`），实现换了、文件名不换——相邻版本的演进就是「同名文件更新」，可逐行对照。原课程文件内容原样入册，仅文件名统一。
+
+## form-ajax/ —— 表单与 Ajax（微线，接口走模拟层）
+
+原课程（九种控件 + EventUtil/ajax/json2/jQuery 四个库 + PHP 后端）重构为现代原生 JavaScript：控件砍到三个聚焦 JS 数据流，后端换成教学站接口模拟层（`mock.json` 声明基址与种子，在线运行自动拦截应答）：
+
+| 目录（slug） | seq | 概念 |
+|---|---|---|
+| `submit/` | 1 | 接管表单提交：preventDefault + FormData 收集 |
+| `ajax-post/` | 2 | fetch 发送 JSON：POST /users，应答回显 |
+| `async/` | 3 | async/await 与异步：慢网络计数器照走、表单照打字 |
+| `validate/` | 4 | 提交前校验：正则 + 行内提示，不过不发请求 |
+| `name-check/` | 5 | 失焦查重：blur 即 GET /users/名字，200 占用 / 404 可用 |
+
+## pcd/ —— 省市区三级联动（微线）
+
+原课堂插件（pcd.js 一次写成的 PCD 构造函数）按功能与技术拆开，一版一个概念演进为现代原生 JS；全国数据 `pcd-data.js` 原样入册、全链共用：
+
+| 目录（slug） | seq | 概念 |
+|---|---|---|
+| `data/` | 1 | 索引路径数据：树编码成扁平键（"0_2_1"） |
+| `onchange/` | 2 | change 事件 + selectedIndex 拼键，两级联动 |
+| `cascade/` | 3 | 级联递推：任一级变化重刷其后所有级 |
+| `widget/` | 4 | 封装成控件：class PCD 收编三段过程代码 |
+| `prompts/` | 5 | 提示项与索引偏移：选项头插「请选择」，序号减 1 |
+
+## position/ —— CSS 定位机制（微线，原课程页面原样入册）
+
+同一张图片同一个版式，每版只动 CSS 里关于 `position` 的几行，走完四种定位机制 + z 轴 + 浮动（配文参考《Web 前端开发技术·06 定位》）：
+
+| 目录（slug） | seq | 概念 |
+|---|---|---|
+| `static/` | 1 | 静态定位：文档流基准形态 |
+| `relative/` | 2 | 相对定位：原位置偏移，原空间保留 |
+| `absolute/` | 3 | 绝对定位：最近已定位祖先为原点 |
+| `z-index/` | 4 | 浮层与 z 轴：叠放次序、角标徽章（依文档新写） |
+| `fixed/` | 5 | 固定定位：原点是屏幕可视区域 |
+| `float/` | 6 | 浮动与清除：文字环绕、clear 找回流 |
 
 ## spa/ —— 博客的版本演进（应用形态主线）
 
@@ -48,17 +85,17 @@
 | `jquery-ajax/` | ajax-rest | $.ajax 实现 REST 数据层（原 index_json.html） |
 | `bower/` | gulp | bower 包管理变体 |
 
-## table-row/ —— 动态表格行操作（微线，含失败复现分支）
+## table-row/ —— 动态表格行操作（微线）
 
-演示动态元素与事件处理，三版走完「行内绑定 → 循环绑定的陷阱（失败分支，运行可见两个 bug）→ 事件委托」：
+原课程 event.html 改写为现代原生 JS 的概念链，一版一个事件/DOM 概念：
 
 | 目录（slug） | seq | 概念 |
 |---|---|---|
-| `inline/` | 1 | 行内 onclick：属性即监听器，参数即字面量 |
-| `loop-fail/` | 1.01 | **失败分支**：for + var 循环绑定，闭包捕获终值 + 新增行无监听 |
+| `event-bind/` | 1 | 事件绑定：addEventListener + preventDefault |
 | `delegation/` | 2 | 事件委托：一个监听器挂 tbody，冒泡接管所有行 |
-
-分支不只有「换一种技术实现」一种：还原真实的试错过程，把走不通的路做成失败分支（可运行、可看到错误行为），与正解分支并列在版本图上。
+| `element-replace/` | 3 | 元素替换：closest 甄别 + replaceWith 原地换输入框 |
+| `dynamic-event/` | 4 | 动态事件：blur 不冒泡，input 诞生那刻动态绑 |
+| `keyboard-event/` | 5 | 键盘事件：回车主动 blur()，提交路仍只一条 |
 
 ## 教学文档
 

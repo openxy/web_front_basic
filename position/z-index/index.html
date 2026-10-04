@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>position example</title>
+    <meta charset='utf-8'>
+    <style type="text/css">
+
+    #page{
+        width:460px;
+        height:1000px;
+        margin: 0 auto;
+        padding:10px;
+        position: relative;
+    }
+
+    section p{
+        border:1px solid grey;
+    }
+
+    /* 图片与徽章都是已定位元素，形成两个定位层，z-index 决定谁压谁 */
+    #photo{
+        position: absolute;
+        top:60px;
+        right:60px;
+    }
+    #photo img{
+        display:block;
+        position: relative;   /* 已定位，才与徽章同处 z 轴竞赛 */
+        z-index: 1;
+    }
+    #photo .badge{
+        position: absolute;   /* 原点 = 最近的已定位祖先 #photo */
+        top:-8px;
+        right:-8px;
+        z-index: 2;           /* 改成 -1 试试：徽章钻到图片背后 */
+        background:red;
+        color:white;
+        font:bold 14px/22px sans-serif;
+        text-align:center;
+        width:22px;
+        height:22px;
+        border-radius:11px;
+    }
+
+    </style>
+</head>
+
+<body>
+<div id="page">
+
+
+    <section id="layer">
+        <h2>浮层与 z 轴</h2>
+        <p>
+            多个绝对定位的元素在原文档空间之上形成多个定位层，获得 Z 轴视角；
+            z-index 属性决定这些层的叠放顺序（数字大者在上，可为负）。
+            <br/>
+            注意：z-index 只对「已定位元素」生效——图片之所以也设了 position:relative，
+            正是为了让它取得参赛资格。试着把徽章的 z-index 改成 -1，徽章将钻到图片背后。
+        </p>
+        <div id="photo">
+            <img src="./pic.jpg" >
+            <span class="badge">1</span>
+        </div>
+        <p>李白，字太白，号青莲居士，又号“谪仙人”，是唐代伟大的浪漫主义诗人，被后人誉为“诗仙”，与杜甫并称为“李杜”，为了与另两位诗人李商隐与杜牧即“小李杜”区别，杜甫与李白又合称“大李杜”。其人爽朗大方，爱饮酒作诗，喜交友。
+        </p>
+    </section>
+
+
+<div>
+</body>
+</html>

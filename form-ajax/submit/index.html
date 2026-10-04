@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单与 Ajax · 接管表单提交</title>
+  <style>
+    label { display: block; margin: 8px 0; }
+    #output { background: #f6f6f6; padding: 8px; min-height: 1.5em; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>注册</h1>
+  <p>原生表单点「注册」会整页跳转到 action 指向的地址。本版用 JS 接管提交：
+     拦下默认行为，把表单数据收集起来直接显示在页面里。</p>
+
+  <form id="register" action="/register" method="post">
+    <label>用户名 <input name="name" maxlength="10" autocomplete="off"></label>
+    <label>密码 <input type="password" name="pwd1"></label>
+    <label>确认密码 <input type="password" name="pwd2"></label>
+    <button type="submit">注册</button>
+  </form>
+  <pre id="output">（提交后这里显示收集到的数据）</pre>
+
+  <script>
+    const form = document.getElementById('register');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // 拦下默认行为：不跳转 action，页面留在原地
+      // FormData 一把收齐所有带 name 的控件；Object.fromEntries 把它变成普通对象
+      const data = Object.fromEntries(new FormData(form));
+      output.textContent = '收到表单数据：\n' + JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单与 Ajax · 提交前校验</title>
+  <style>
+    label { display: block; margin: 8px 0; }
+    .tip { color: red; font-size: 13px; margin-left: 8px; }
+    #output { background: #f6f6f6; padding: 8px; min-height: 1.5em; white-space: pre-wrap; }
+    button[disabled] { color: #999; }
+  </style>
+</head>
+<body>
+  <h1>注册</h1>
+  <p>发送之前先校验：用户名要字母开头、只含字母数字，两次密码须一致。
+     不过关就不打扰服务器，错处用行内红字标出——不再是弹一扇 alert 窗。</p>
+
+  <form id="register" action="/register" method="post">
+    <label>用户名 <input name="name" maxlength="10" autocomplete="off"><span class="tip"></span></label>
+    <label>密码 <input type="password" name="pwd1"></label>
+    <label>确认密码 <input type="password" name="pwd2"><span class="tip"></span></label>
+    <button type="submit">注册</button>
+  </form>
+  <pre id="output">（提交后这里先计数、后显示结果）</pre>
+
+  <script>
+    const form = document.getElementById('register');
+    const output = document.getElementById('output');
+    const API = 'http://localhost:3000';
+
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    // 校验规则：返回 true/false。正则对应原课程服务端的 preg_match
+    const checkName = (name) => /^[a-zA-Z][a-zA-Z0-9]*$/.test(name);
+    const checkPwd = (pwd1, pwd2) => !!pwd1 && pwd1 === pwd2;
+
+    function validate(data) {
+      // [是否通过, 出错的输入框, 提示文字]：行内提示各自写回自己的 span
+      const rules = [
+        [checkName(data.name), form.elements.name, '字母开头，只能字母数字'],
+        [checkPwd(data.pwd1, data.pwd2), form.elements.pwd2, '两次密码须一致且非空'],
+      ];
+      let ok = true;
+      for (const [pass, input, msg] of rules) {
+        input.closest('label').querySelector('.tip').textContent = pass ? '' : msg;
+        if (!pass) ok = false;
+      }
+      return ok;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      if (!validate(data)) { // 校验不过：不发请求，到此为止
+        output.textContent = '校验未通过，请求未发出';
+        return;
+      }
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      let seconds = 0;
+      const timer = setInterval(() => {
+        output.textContent = `提交中… 已等 ${++seconds} 秒（此刻还能改表单，页面没卡死）`;
+      }, 1000);
+      try {
+        await wait(2000);
+        const resp = await fetch(API + '/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: data.name, password: data.pwd1 }),
+        });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const user = await resp.json();
+        output.textContent = '注册成功：' + user.id;
+      } catch (err) {
+        output.textContent = '提交失败：' + err.message;
+      } finally {
+        clearInterval(timer);
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

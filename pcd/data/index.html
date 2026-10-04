@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>省市区三级联动 · 数据的形状</title>
+</head>
+<body>
+  <h1>省市区三级联动</h1>
+  <p>
+    全国省市区数据在 <code>pcd-data.js</code> 里：一棵树被编码成一张扁平的键值表。
+    键是「索引路径」——<code>"0"</code> 是省级名称列表，<code>"0_2"</code> 是第 3 个省的城市列表，
+    <code>"0_2_1"</code> 是其中第 2 个市的区县列表。层级关系藏在下划线里。
+  </p>
+  <p>本版先把省级下拉填起来：读 <code>pcdData["0"]</code>，逐个塞进 select。</p>
+
+  <select id="province"></select>
+
+  <script src="pcd-data.js"></script>
+  <script>
+    // 数据长什么样：在控制台敲 pcdData["0_2"] 看河北省的城市，敲 pcdData["0_2_1"] 看其中一市的区县
+    const provinces = pcdData['0'];
+    const province = document.getElementById('province');
+    for (const name of provinces) {
+      province.add(new Option(name, name)); // Option(文字, 值)：生成一个 option 并入列
+    }
+  </script>
+</body>
+</html>

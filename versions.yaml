@@ -1,5 +1,146 @@
 # 前端教学语料 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
 
+- slug: form-ajax/submit
+  title: 接管表单提交
+  summary: preventDefault 拦下整页跳转，FormData 一把收齐表单值，页面内展示提交数据
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: form-ajax/ajax-post
+  title: fetch 发送 JSON
+  summary: 表单数据 JSON 序列化后 POST 给接口，应答回显页面；原课程 238 行 XHR 序列化收敛成三行
+  seq: 2
+  parent: submit
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: form-ajax/async
+  title: async/await 与异步
+  summary: 慢网络下计数器照走、表单照打字：await 让出控制权页面不卡；.then 回调链改写为 async/await
+  seq: 3
+  parent: ajax-post
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: form-ajax/validate
+  title: 提交前校验
+  summary: 用户名正则、两次密码一致，行内红字提示取代 alert，校验不过请求不发出
+  seq: 4
+  parent: async
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: form-ajax/name-check
+  title: 失焦查重
+  summary: 用户名一失焦就 GET /users/名字：200 已占用、404 可用——把「提交等报错」压成「填完就知道」
+  seq: 5
+  parent: validate
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: pcd/data
+  title: 索引路径数据
+  summary: 省市区树编码成扁平键："0" 是省列表，"0_2" 是第 3 个省的城市，"0_2_1" 是其第 2 市的区县
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/onchange
+  title: onchange 联动
+  summary: 选省即取数填市：change 事件 + selectedIndex 拼键 "0_i"，两级下拉第一次联动起来
+  seq: 2
+  parent: data
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/cascade
+  title: 三级级联
+  summary: 填充按层级递推：任一级变化，从该级到末级全部重刷，区县随省市走
+  seq: 3
+  parent: onchange
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/widget
+  title: 封装成控件
+  summary: 三段过程代码收进 class PCD：构造器收数据与 id 列表，自己绑事件自己初始化，页面一行调用
+  seq: 4
+  parent: cascade
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/prompts
+  title: 提示项与索引偏移
+  summary: 每级先插「请选择」提示项，取数时 selectedIndex 减 1 修正——索引偏移是列表头插提示必付的小税
+  seq: 5
+  parent: widget
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/static
+  title: 静态定位
+  summary: 文档流默认排布：block 独占一行、inline 依次右排，一切定位机制的基准形态
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/relative
+  title: 相对定位
+  summary: 以原位置为原点偏移，原空间保留可与兄弟重叠；元素自此成为可当绝对定位原点的已定位元素
+  seq: 2
+  parent: static
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/absolute
+  title: 绝对定位
+  summary: 脱离文档流转型块盒，以最近非静态祖先为原点钉在页面上，文档流当它不存在
+  seq: 3
+  parent: relative
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/z-index
+  title: 浮层与 z 轴
+  summary: 绝对定位元素形成定位层，z-index 定叠放次序——图片角标徽章的最小实现（依《定位》文档新写）
+  seq: 4
+  parent: absolute
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/fixed
+  title: 固定定位
+  summary: 原点换成屏幕可视区域，页面怎么滚它不动；分清文档区域与可视区域，附四种机制小结表
+  seq: 5
+  parent: z-index
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/float
+  title: 浮动与清除
+  summary: 为文字环绕而生：脱离文档流但文本绕行不重叠；未清除的浮动顶歪后面的块，clear 找回
+  seq: 6
+  parent: fixed
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: spa/file
   title: 文件系统管理内容
   summary: 前史：在没有任何 Web 技术时，用磁盘文件和目录管理博客内容
