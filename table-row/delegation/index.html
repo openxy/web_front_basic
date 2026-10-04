@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>名单管理 · 事件委托</title>
+<style>
+  body { font-family: sans-serif; margin: 2rem auto; max-width: 32rem; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+  th { background: #f5f5f5; }
+  button { cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>名单</h1>
+<button id="add">＋ 添加一行</button>
+<table id="list">
+  <thead><tr><th>姓名</th><th>邮箱</th><th>操作</th></tr></thead>
+  <tbody>
+    <tr><td>张三</td><td>zhang@edu.example</td><td><button class="del">删除</button></td></tr>
+    <tr><td>李四</td><td>li@edu.example</td><td><button class="del">删除</button></td></tr>
+    <tr><td>王五</td><td>wang@edu.example</td><td><button class="del">删除</button></td></tr>
+  </tbody>
+</table>
+<script>
+// 事件委托：一个监听器挂 tbody，靠冒泡接管所有行（含未来新增的行）的点击
+document.querySelector('#list tbody').addEventListener('click', function (e) {
+  var btn = e.target.closest('.del');
+  if (!btn) return; // 点的不是删除按钮，不管
+  btn.closest('tr').remove(); // 行删自己：按 DOM 归属定位，不依赖索引
+});
+
+document.getElementById('add').onclick = function () {
+  var tr = document.createElement('tr');
+  tr.innerHTML = '<td>新同学</td><td>new@edu.example</td><td><button class="del">删除</button></td>';
+  document.querySelector('#list tbody').appendChild(tr);
+};
+</script>
+</body>
+</html>
