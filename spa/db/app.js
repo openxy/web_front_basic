@@ -45,7 +45,7 @@ function posts_delete(id){
 // 拦截表单提交后的回调callback
 function after_form_submit_callback(post) {
   if(!post['id']) {
-    posts_create(post);    
+    posts_create(post);
   } else {
     posts_update(post);
   }
@@ -62,4 +62,3 @@ function posts_update(post) {
   db_update(post);
   window.location = `#/posts/${post['id']}`
 }
-

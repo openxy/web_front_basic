@@ -57,7 +57,6 @@ function db_find(id, callback) {
   });
 }
 
-
 // 创建新文章
 function db_create(post, callback) {
   const today = new Date();

@@ -26,8 +26,9 @@
   <script>
     const form = document.getElementById('register');
     const output = document.getElementById('output');
-    const API = 'http://localhost:3000';
+    const API = 'http://localhost:3000'; // 模拟层拦截的基址（版本目录 mock.json 声明）
 
+    // 模拟慢网络：原课程在服务端 sleep(8)，模拟层没有延迟，客户端自己等 2 秒
     const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // 校验规则：返回 true/false。正则对应原课程服务端的 preg_match
@@ -56,13 +57,13 @@
         return;
       }
       const btn = form.querySelector('button');
-      btn.disabled = true;
+      btn.disabled = true; // 防重复提交：等待期间按钮按不动
       let seconds = 0;
       const timer = setInterval(() => {
         output.textContent = `提交中… 已等 ${++seconds} 秒（此刻还能改表单，页面没卡死）`;
       }, 1000);
       try {
-        await wait(2000);
+        await wait(2000); // 在这里让出控制权：下面的 fetch 要等它，页面其他一切不用等
         const resp = await fetch(API + '/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -74,7 +75,7 @@
       } catch (err) {
         output.textContent = '提交失败：' + err.message;
       } finally {
-        clearInterval(timer);
+        clearInterval(timer); // 成败都得收的尾：停计数器、解禁按钮
         btn.disabled = false;
       }
     });

@@ -3,7 +3,8 @@ import { Router } from './lib/simple_hash_router.js';
 import { render_view } from './lib/view.js';
 import { db_all, db_find, db_create, db_update, db_destroy } from './lib/db.js';
 
-// 模块内是严格模式；view.js 的表单拦截经 window 回调进来，需显式挂载
+// 模块内是严格模式，不能像全局脚本那样隐式创建全局变量；
+// view.js 的表单拦截经 window 回调进来，需显式挂载
 window.after_form_submit_callback = after_form_submit_callback;
 
 // Define routes and initialize the router
@@ -99,5 +100,3 @@ async function posts_update(post) {
     console.error('更新文章失败:', error);
   }
 }
-
-

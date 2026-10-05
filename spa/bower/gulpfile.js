@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     mergeStream =   require('merge-stream')
 
-// 由于ejs.js当前不支持amd和bower工具，故只能按旧方法处理
 gulp.task('compress', function () {
   var  lib = gulp.src('./bower.json')
               .pipe(mainBowerFiles( ))             

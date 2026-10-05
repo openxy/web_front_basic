@@ -13,8 +13,7 @@ class PCD {
     this.fill(0); // 初始化第一级，触发整条链
   }
 
-  // 从第 from 级填到末级：第 v 级的键 = "0" + 前 v 级各自的选中序号。
-  // 有提示项时选项 0 是提示、数据从 1 起——拼索引路径要整体减 1
+  // 从第 from 级填到末级：第 v 级的键 = "0" + 前 v 级各自的选中序号
   fill(from) {
     const offset = this.prompts.length > 0 ? 1 : 0;
     for (let v = from; v < this.ids.length; v++) {
@@ -22,7 +21,7 @@ class PCD {
       for (let i = 0; i < v; i++) {
         sid += '_' + (document.getElementById(this.ids[i]).selectedIndex - offset);
       }
-      const names = this.data[sid] ?? []; // 上级停在提示项时序号为 -1，键查不到，按空列表处理
+      const names = this.data[sid] ?? [];
       const select = document.getElementById(this.ids[v]);
       select.innerHTML = '';
       if (this.prompts[v]) select.add(new Option(this.prompts[v], ''));

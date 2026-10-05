@@ -2,8 +2,9 @@
 import $ from 'jquery';
 import ejs from 'ejs';
 
-// 获取表单数据的值
-// 用于局部更新页面：加载模板
+// 以下是视图view相关的工具函数
+
+// 局部更新页面：加载模板
 function render_view(tplName,data=null){
   //console.log(data)
   // 字符串插值
@@ -19,7 +20,7 @@ function render_view(tplName,data=null){
 }
 
 
-// 获取表单的内容
+// 获取表单数据的值
 function fetch_form(){
   let post = {}   ;
   post["id"] = $('input[name=id]').val();
@@ -40,4 +41,5 @@ $(document).on('submit','form', function( event ) {
 
 });
 
+// 对外提供：渲染视图 / 收集表单
 export { render_view, fetch_form };

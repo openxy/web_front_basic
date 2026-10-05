@@ -3,7 +3,8 @@ import { Router } from './lib/simple_hash_router.js';
 import { render_view } from './lib/view.js';
 import { db_all, db_find, db_create, db_update, db_destroy } from './lib/db.js';
 
-// 模块内是严格模式，不能隐式创建全局变量；view.js 的表单拦截经 window 回调进来，需显式挂载
+// 模块内是严格模式，不能像全局脚本那样隐式创建全局变量；
+// view.js 的表单拦截经 window 回调进来，需显式挂载
 window.after_form_submit_callback = after_form_submit_callback;
 
 // Define routes and initialize the router
@@ -51,7 +52,7 @@ function posts_delete(id){
 // 拦截表单提交后的回调callback
 function after_form_submit_callback(post) {
   if(!post['id']) {
-    posts_create(post);    
+    posts_create(post);
   } else {
     posts_update(post);
   }
@@ -68,4 +69,3 @@ function posts_update(post) {
   db_update(post);
   window.location = `#/posts/${post['id']}`
 }
-

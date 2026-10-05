@@ -28,7 +28,8 @@
     const API = 'http://localhost:3000'; // 模拟层拦截的基址（版本目录 mock.json 声明）
 
     form.addEventListener('submit', (event) => {
-      event.preventDefault();
+      event.preventDefault(); // 拦下默认行为：不跳转 action，页面留在原地
+      // FormData 一把收齐所有带 name 的控件；Object.fromEntries 把它变成普通对象
       const data = Object.fromEntries(new FormData(form));
       fetch(API + '/users', {
         method: 'POST',

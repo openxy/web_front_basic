@@ -33,7 +33,7 @@ function db_get_last_key(){
   return max + 1
 }
 
-function db_create(post){       
+function db_create(post){
   let today = new Date()
   post["created_at"] = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
   post["id"] = db_get_last_key()
@@ -49,4 +49,5 @@ function db_update(post){
 function db_destroy(id){   
   localStorage.removeItem(id)
 }
+
 export { db_all, db_find, db_create, db_update, db_destroy };
