@@ -152,7 +152,7 @@
 
 - slug: position/float-defect
   title: 浮动的缺陷
-  summary: 高度塌陷：父元素包不住浮动图片；探出的图片顶歪后续内容——一行代码都没写错的事故现场
+  summary: 浮动版同例改右浮动：红框包不住探出的图片，下方内容被迫绕行——一行代码都没写错的事故现场
   seq: 7
   parent: float
   entry: index.html
@@ -161,7 +161,7 @@
 
 - slug: position/float-clear
   title: 浮动的清除
-  summary: 空元素挂 clear 垫回父高度，蓝框重新包住图片，后面的内容复位
+  summary: 缺陷版同例加一行：空元素挂 clear 垫回父高度，红框重新包住图片，下方内容复位
   seq: 8
   parent: float-defect
   entry: index.html

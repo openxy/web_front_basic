@@ -10,7 +10,9 @@
 
 ## 本版本的改动
 
-- 删掉 `<div style="clear:right;"></div>`，给蓝框 section 挂 `class="clearfix"`——HTML 结构零改动
+上一版原样沿用，只是清除的执行者换了人：
+
+- 删掉 `<div style="clear:right;"></div>`，给红框 section 挂 `class="clearfix"`——HTML 结构零改动
 - CSS 新增 clearfix 规则组：由 `.clearfix::after` 在 section 末尾生成空内容并清除浮动
 
 ## 关键代码走读
@@ -39,7 +41,7 @@
 
 ## 试试
 
-- 给第四段（无浮动的验证段）也挂上 clearfix 类：毫无变化——对没有浮动子的元素，clearfix 是无害的
+- 给下方验证段也挂上 clearfix 类：毫无变化——对没有浮动子的元素，clearfix 是无害的
 - 删掉 `::before` 整段规则：本例视觉不变（没有边距可塌），但在有 margin 的真实页面上差别会露出来
 
 ## 思考题
