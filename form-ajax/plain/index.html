@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>表单与 Ajax · 传统表单</title>
+</head>
+<body>
+  <h1>注册</h1>
+  <p>这是没有一行 JS 的原生表单：点「注册」，浏览器把三个输入框的值收进请求体，
+     整页跳转到 action 指向的 /register，等服务器返回一个新页面。</p>
+
+  <form id="register" action="/register" method="post">
+    <label>用户名 <input name="name" maxlength="10" autocomplete="off"></label>
+    <label>密码 <input type="password" name="pwd1"></label>
+    <label>确认密码 <input type="password" name="pwd2"></label>
+    <button type="submit">注册</button>
+  </form>
+</body>
+</html>

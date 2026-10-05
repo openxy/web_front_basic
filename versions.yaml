@@ -1,9 +1,18 @@
 # 前端教学语料 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
 
+- slug: form-ajax/plain
+  title: 传统表单
+  summary: 无 JS 的原生提交：整页跳转、等服务器返回新页——微线出发点，教学文档兼全项目总览
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: form-ajax/submit
   title: 接管表单提交
   summary: preventDefault 拦下整页跳转，FormData 一把收齐表单值，页面内展示提交数据
-  seq: 1
+  seq: 2
+  parent: plain
   entry: index.html
   runtime: static
   edit_run: true
@@ -11,7 +20,7 @@
 - slug: form-ajax/ajax-post
   title: fetch 发送 JSON
   summary: 表单数据 JSON 序列化后 POST 给接口，应答回显页面；原课程 238 行 XHR 序列化收敛成三行
-  seq: 2
+  seq: 3
   parent: submit
   entry: index.html
   runtime: shim
@@ -20,7 +29,7 @@
 - slug: form-ajax/async
   title: async/await 与异步
   summary: 慢网络下计数器照走、表单照打字：await 让出控制权页面不卡；.then 回调链改写为 async/await
-  seq: 3
+  seq: 4
   parent: ajax-post
   entry: index.html
   runtime: shim
@@ -29,7 +38,7 @@
 - slug: form-ajax/validate
   title: 提交前校验
   summary: 用户名正则、两次密码一致，行内红字提示取代 alert，校验不过请求不发出
-  seq: 4
+  seq: 5
   parent: async
   entry: index.html
   runtime: shim
@@ -38,7 +47,7 @@
 - slug: form-ajax/name-check
   title: 失焦查重
   summary: 用户名一失焦就 GET /users/名字：200 已占用、404 可用——把「提交等报错」压成「填完就知道」
-  seq: 5
+  seq: 6
   parent: validate
   entry: index.html
   runtime: shim
@@ -133,10 +142,37 @@
   edit_run: true
 
 - slug: position/float
-  title: 浮动与清除
-  summary: 为文字环绕而生：脱离文档流但文本绕行不重叠；未清除的浮动顶歪后面的块，clear 找回
+  title: 浮动
+  summary: 为文字环绕而生：脱离文档流但文本绕行不重叠，图片浮在文本层之上，父高度已不含它
   seq: 6
   parent: fixed
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/float-defect
+  title: 浮动的缺陷
+  summary: 高度塌陷：父元素包不住浮动图片；探出的图片顶歪后续内容——一行代码都没写错的事故现场
+  seq: 7
+  parent: float
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/float-clear
+  title: 浮动的清除
+  summary: 空元素挂 clear 垫回父高度，蓝框重新包住图片，后面的内容复位
+  seq: 8
+  parent: float-defect
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: position/clearfix
+  title: 伪元素清除浮动
+  summary: .clearfix 用 ::after 生成内容代劳空元素，HTML 结构零侵入（依《伪类、伪元素与内容生成》文档新写）
+  seq: 9
+  parent: float-clear
   entry: index.html
   runtime: static
   edit_run: true

@@ -26,11 +26,12 @@
 
 | 目录（slug） | seq | 概念 |
 |---|---|---|
-| `submit/` | 1 | 接管表单提交：preventDefault + FormData 收集 |
-| `ajax-post/` | 2 | fetch 发送 JSON：POST /users，应答回显 |
-| `async/` | 3 | async/await 与异步：慢网络计数器照走、表单照打字 |
-| `validate/` | 4 | 提交前校验：正则 + 行内提示，不过不发请求 |
-| `name-check/` | 5 | 失焦查重：blur 即 GET /users/名字，200 占用 / 404 可用 |
+| `plain/` | 1 | 传统表单：无 JS 的原生提交，演示整页跳转等不足（doc 兼微线总览） |
+| `submit/` | 2 | 接管表单提交：preventDefault + FormData 收集 |
+| `ajax-post/` | 3 | fetch 发送 JSON：POST /users，应答回显 |
+| `async/` | 4 | async/await 与异步：慢网络计数器照走、表单照打字 |
+| `validate/` | 5 | 提交前校验：正则 + 行内提示，不过不发请求 |
+| `name-check/` | 6 | 失焦查重：blur 即 GET /users/名字，200 占用 / 404 可用 |
 
 ## pcd/ —— 省市区三级联动（微线）
 
@@ -46,7 +47,7 @@
 
 ## position/ —— CSS 定位机制（微线，原课程页面原样入册）
 
-同一张图片同一个版式，每版只动 CSS 里关于 `position` 的几行，走完四种定位机制 + z 轴 + 浮动（配文参考《Web 前端开发技术·06 定位》）：
+同一张图片同一个版式，每版只动 CSS 里关于 `position` / `float` 的几行，走完四种定位机制 + z 轴 + 浮动三章（配文参考《Web 前端开发技术·05/06》）：
 
 | 目录（slug） | seq | 概念 |
 |---|---|---|
@@ -55,7 +56,10 @@
 | `absolute/` | 3 | 绝对定位：最近已定位祖先为原点 |
 | `z-index/` | 4 | 浮层与 z 轴：叠放次序、角标徽章（依文档新写） |
 | `fixed/` | 5 | 固定定位：原点是屏幕可视区域 |
-| `float/` | 6 | 浮动与清除：文字环绕、clear 找回流 |
+| `float/` | 6 | 浮动：文字环绕，脱离文档流但文本绕行 |
+| `float-defect/` | 7 | 浮动的缺陷：高度塌陷、后续内容被顶歪 |
+| `float-clear/` | 8 | 浮动的清除：空元素挂 clear 垫回父高度 |
+| `clearfix/` | 9 | 伪元素清除浮动：.clearfix 结构零侵入（依文档新写） |
 
 ## spa/ —— 博客的版本演进（应用形态主线）
 
