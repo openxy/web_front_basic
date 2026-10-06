@@ -2,7 +2,7 @@
 
 - slug: form-ajax/plain
   title: 传统表单
-  summary: 无 JS 的原生提交：整页跳转、等服务器返回新页——微线出发点，教学文档兼全项目总览
+  summary: 无 JS 的原生提交：整页跳转、等服务器返回新页——案例出发点
   seq: 1
   entry: index.html
   runtime: static
