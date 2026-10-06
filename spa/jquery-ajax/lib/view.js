@@ -6,7 +6,6 @@ import ejs from 'ejs';
 
 // 局部更新页面：加载模板
 function render_view(tplName,data=null){
-  //console.log(data)
   // 字符串插值
   let path = `./view/${tplName}.tpl`;
 
@@ -30,7 +29,6 @@ function fetch_form(){
   return post;
 }
 
-// https://stackoverflow.com/questions/18545941/jquerys-on-method-combined-with-the-submit-event
 $(document).on('submit','form', function( event ) {
     //console.log( "Handler for `submit` called." );
 

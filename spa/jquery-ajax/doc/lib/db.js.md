@@ -10,6 +10,6 @@ $.ajax({
 });
 ```
 
-关键设计：**回调签名与 08 的 fetch 版逐字一致**（`db_all(callback)` 等，文件头注释明说）——所以 app.js 一行不用改，两个分支随便切。配置对象 + success/error 回调是 $.ajax 的经典形态，与 fetch 的 Promise 链是两代异步风格；下一版（09）async/await 再换一代，三版连看就是异步 API 的三代史。
+关键设计：**回调签名与 08 的 fetch 版逐字一致**（`db_all(callback)` 等，08 版文件头注释点明）——所以 app.js 一行不用改，两个分支随便切。配置对象 + success/error 回调是 $.ajax 的经典形态，与 fetch 的 Promise 链是两代异步风格；下一版（09）async/await 再换一代，三版连看就是异步 API 的三代史。
 
 文件头 `import $ from 'jquery'` 与 07.01 分支同款（import map 声明依赖）。

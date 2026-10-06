@@ -4,7 +4,6 @@ import ejs from 'ejs';
 
 // 局部更新页面：加载模板
 function render_view(tplName,data=null){
-  //console.log(data)
   // 字符串插值
   let path = `./view/${tplName}.tpl`;
 
@@ -32,7 +31,6 @@ function fetch_form(){
     post["id"] =  id_input.value;  
   }  
   // 可选链运算符，允许对象为null时仍可调用其方法，但一律返回为空
-  // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining
   post["created_at"] = document.querySelector('[name=created_at]')?.value;
   
   post["title"] = document.querySelector('[name=title]').value;
@@ -42,10 +40,6 @@ function fetch_form(){
 
 
 // 拦截form的默认事件，实现单页刷新效果
-//https://blog.csdn.net/BIGC_Leo/article/details/151155172
-//https://www.cnblogs.com/7qin/p/10660678.html
-
-//https://juejin.cn/post/7479084726709059603
 document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('main').addEventListener('submit',function(e){
     if(e.target && e.target.nodeName.toUpperCase() === 'FORM') {

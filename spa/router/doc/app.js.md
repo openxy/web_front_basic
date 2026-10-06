@@ -9,3 +9,7 @@
 Router 内部（simple_hash_router.js）做两件事：把 `/posts/:id` 转成正则，监听 `hashchange` 后拿 `location.hash` 逐条试匹配，命中就把捕获的 id 传给控制器；全部不匹配写 404。URL 的 `#/posts/1001` 从此决定显示哪个视图——**一个 HTML 里切换多页**，这就是 SPA。
 
 与上一版对照：static 版每页一个文件，本版列表与详情共用 index.html + 两份模板。还缺的 new/edit/delete 三个路由见下一版。
+
+## 参考
+
+`lib/simple_hash_router.js` 原课程注释所附的手写路由出处：<https://basescripts.com/implementing-a-simple-client-side-router-in-javascript>（hash 方案）、<https://sangwin.medium.com/how-to-work-with-routing-in-plain-javascript-ece09fbcd008>（pushState 方案，本文件未采用）、<https://github.com/daleighan/vanilla-js-router>。

@@ -1,30 +1,3 @@
-/*
-## 说明
-本文件为 async/await 版本，后端使用json-server
-
-## 安装
-* node.js 环境
-* 安装json-server: npm i -g json-server
-* 创建data/posts.json文件,内容
-{
-  "posts": [
-    
-  ]
-}
-
-## 启动
-在项目根目录下，启动json-server做为api服务器，以下指定端口
-```
-json-server --watch --port 3000 data/posts.json
-```
-在浏览器中检查 http://localhost:3000/ 是否能成功访问
-
-## 注意
-* 请务必对posts.json文件的数据格式进行校验，否则使用ajax装载时，会报错误！
-* 在线 json validator 工具 http://www.piliapp.com/json/validator/
-* 本版本使用 async/await 模式，调用时需使用 await 或 .then()
-*/
-
 // API 基础URL
 const API_BASE_URL = 'http://localhost:3000';
 

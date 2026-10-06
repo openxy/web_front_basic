@@ -1,10 +1,4 @@
 // 基于hash的简单路由
-// 使用# https://basescripts.com/implementing-a-simple-client-side-router-in-javascript
-// 使用pushstate,https://sangwin.medium.com/how-to-work-with-routing-in-plain-javascript-ece09fbcd008
-//https://github.com/daleighan/vanilla-js-router
-
-// 客户端路由库，方便处理对hash的监听和解析 https://github.com/flatiron/director    
-// https://www.cnblogs.com/Showshare/p/director-chinese-tutorial.html
 
 class Router {
   constructor(routes) {

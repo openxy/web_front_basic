@@ -8,3 +8,7 @@
 - 文件头多了 `import $ from 'jquery'`——依赖经 import map 声明，与前几版 ejs 同一套机制
 
 jQuery 的历史价值就在这些「短一点、少打字」：2010 年代它把跨浏览器差异与冗长的 DOM API 收进 `$`。今天 `querySelector`/`fetch` 原生追平了大部分，短式写法的收益随之缩水——对照完两边，各自的存在感就清楚了。文件首行注释自评「更为简洁」，读的时候自己掂量这个判断还剩几成。
+
+## 参考
+
+submit 事件与 jQuery `.on()` 结合使用的坑（原课程注释所附）：<https://stackoverflow.com/questions/18545941/jquerys-on-method-combined-with-the-submit-event>
