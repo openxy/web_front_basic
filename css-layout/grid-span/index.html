@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>css layout example</title>
+  <meta charset='utf-8'>
+  <style type="text/css">
+
+    body{
+        font:14px/1.7 sans-serif;
+        margin:0;
+    }
+    .hd,.ft{
+        grid-column:1/3;               /* 横跨两列：从第 1 条列格线到第 3 条 */
+    }
+    .hd{
+        background:#333;
+        color:#fff;
+        padding:0 12px;
+        display:flex;                  /* 页头成为 flex 容器，子项即刻横排 */
+        justify-content:space-between; /* 主轴：两端对齐，中间留白 */
+        align-items:center;            /* 交叉轴：垂直置中——传统盒子的百年名题一行解决 */
+        height:44px;
+    }
+    .page{
+        max-width:960px;         /* 不再写死宽度：弹性时代给上限，页面随窗口伸缩 */
+        margin:0 auto;
+        display:grid;                  /* 二维网格：子项落入轨道围成的格子 */
+        grid-template-columns:3fr 1fr; /* 列轨道：剩余空间按份分，对比 grid_8 的预计算像素 */
+        gap:12px;                      /* 轨道间距 = 栅格的 gutter，一个属性替代 margin 拼凑 */
+    }
+    .main{
+        background:skyblue;
+    }
+    .side{
+        grid-column:2;
+        grid-row:2/4;                  /* 纵跨两行：侧栏与主栏、相关阅读同高，落位不再顺着流排 */
+        background:wheat;
+    }
+    .extra{
+        background:#ddd;
+    }
+    .ft{
+        background:#eee;
+        color:#555;
+        padding:8px 12px;
+        text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+    <div class="hd"><b>MySite</b> <span>首页 · 课程 · 关于</span> <span>登录</span></div>
+    <div class="main">
+        <h2>主栏</h2>
+        <p>这是一个经典的页面骨架：页头放标识与导航，主体分主栏与侧栏，页脚收尾。本案例八代版本实现同一个骨架，每一代换一种布局技术。</p>
+        <p>看懂布局演化史的钥匙：每一种新方案都是对前一种缺陷的回答。比较相邻两版的差异时，留意每代解决了什么、又留下了什么。</p>
+    </div>
+    <div class="side">
+        <h3>侧栏</h3>
+        <p>侧栏内容比主栏短。它能否与主栏等高、栏间留多少空隙，每一代布局技术交出的答案都不一样——这是贯穿八版的观察点。</p>
+    </div>
+    <div class="extra">
+        <h3>相关阅读</h3>
+        <p>二维布局的典型场景：页面骨架、卡片矩阵、仪表盘——行列都要对齐时，一张网格声明完事。</p>
+    </div>
+    <div class="ft">页脚 · 布局演化演示</div>
+</div>
+</body>
+</html>

@@ -1,4 +1,75 @@
-# 前端教学语料 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
+# 前端教学案例集 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
+
+- slug: css-layout/table
+  title: 表格布局
+  summary: 拿 table 语义标记凑页面骨架：等高列天然成立，代价是 HTML 堆满语义无关的标记
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/table-css
+  title: 表格特性回归样式层
+  summary: display:table 让普通 div 享用等高列：布局特性回到样式层，语义不再被污染
+  seq: 2
+  parent: table
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/float
+  title: 浮动多栏
+  summary: 块元素浮动后横向排站：百分比栏宽加 clearfix 兜底，塌陷机理见 position 案例浮动四部曲
+  seq: 3
+  parent: table-css
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/grid-960
+  title: 栅格系统 960
+  summary: 「占 N 列」预先算成类名，声明式表达布局；底层仍是 float，固定 960px 不响应
+  seq: 4
+  parent: float
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/flex
+  title: 弹性容器与十字轴
+  summary: 页头变 flex 容器：justify-content 管主轴分布、align-items 管交叉轴置中，两行声明清掉传统对齐难题
+  seq: 5
+  parent: grid-960
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/flex-item
+  title: 子项弹性分配
+  summary: 子项 flex 按份分剩余空间：3:1 恒成立，960 的固定宽度与 clearfix 一并退场
+  seq: 6
+  parent: flex
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/grid
+  title: 网格轨道
+  summary: grid-template-columns 定义列轨道，fr 按份分配、gap 即 gutter，二维网格成为语言原生能力
+  seq: 7
+  parent: flex-item
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/grid-span
+  title: 跨格落位与整页网格
+  summary: grid-column/grid-row 声明格线范围：页头页脚横跨、侧栏纵跨，整页一张网格收束演化史
+  seq: 8
+  parent: grid
+  entry: index.html
+  runtime: static
+  edit_run: true
 
 - slug: form-ajax/plain
   title: 传统表单
@@ -308,6 +379,7 @@
   seq: 1
   entry: index.html
   runtime: static
+  edit_run: true
 
 - slug: table-row/delegation
   title: 事件委托
@@ -316,6 +388,7 @@
   parent: table-row/event-bind
   entry: index.html
   runtime: static
+  edit_run: true
 
 - slug: table-row/element-replace
   title: 元素替换
@@ -324,6 +397,7 @@
   parent: table-row/delegation
   entry: index.html
   runtime: static
+  edit_run: true
 
 - slug: table-row/dynamic-event
   title: 动态事件
@@ -332,6 +406,7 @@
   parent: table-row/element-replace
   entry: index.html
   runtime: static
+  edit_run: true
 
 - slug: table-row/keyboard-event
   title: 键盘事件
@@ -340,4 +415,5 @@
   parent: table-row/dynamic-event
   entry: index.html
   runtime: static
+  edit_run: true
 

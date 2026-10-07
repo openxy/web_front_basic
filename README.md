@@ -8,6 +8,7 @@
 
 | 案例 | 教什么 | 版本数 |
 | --- | --- | --- |
+| [`css-layout/`](css-layout/README.md) | CSS 布局演化：表格→display:table→浮动→960 栅格→flex→grid，同一骨架八代重写 | 8 |
 | [`spa/`](spa/README.md) | 博客应用形态演进主线：文件→静态→模板→路由→CRUD→数据层→ESM→存储→REST→async→构建（另 3 个 jQuery/bower 分支） | 14 |
 | [`position/`](position/README.md) | CSS 定位与浮动：四种定位机制 + z 轴 + 浮动四部曲（原课程页面原样入册） | 9 |
 | [`pcd/`](pcd/README.md) | 省市区三级联动：数据组织→事件联动→级联→封装→细节修正 | 5 |
