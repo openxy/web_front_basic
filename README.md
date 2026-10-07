@@ -12,6 +12,7 @@
 | [`spa/`](spa/README.md) | 博客应用形态演进主线：文件→静态→模板→路由→CRUD→数据层→ESM→存储→REST→async→构建（另 3 个 jQuery/bower 分支） | 14 |
 | [`position/`](position/README.md) | CSS 定位与浮动：四种定位机制 + z 轴 + 浮动四部曲（原课程页面原样入册） | 9 |
 | [`responsive/`](responsive/README.md) | 响应式布局：固定宽度→流体→图片事故→媒体查询→移动优先→auto-fit，承接 css-layout 骨架 | 7 |
+| [`restful/`](restful/README.md) | REST 动词演化：GET 列表/单个→POST→PUT→DELETE→状态码与错误处理 | 6 |
 | [`scope-closure/`](scope-closure/README.md) | 作用域与闭包：全局撞名事故→IIFE→闭包工厂→循环陷阱→let 修复→模块收束 | 6 |
 | [`js-async/`](js-async/README.md) | 单线程异步：同步冻屏→分片让出→回调→Promise→async/await→并行聚合 | 6 |
 | [`pcd/`](pcd/README.md) | 省市区三级联动：数据组织→事件联动→级联→封装→细节修正 | 5 |

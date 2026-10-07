@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>事件传播三阶段</title>
+        <style>
+            .box {
+                padding: 24px;
+                border: 2px solid;
+                cursor: pointer;
+            }
+            .outer { background: #e3f2fd; border-color: #1976d2; }
+            .middle { background: #fff3e0; border-color: #f57c00; }
+            .inner { background: #e8f5e9; border-color: #388e3c; display: inline-block; padding: 12px 20px; }
+            #log {
+                margin-top: 12px;
+                font-family: monospace;
+                padding-left: 20px;
+            }
+            #log li { padding: 2px 0; }
+        </style>
+    </head>
+    <body>
+        <h3>点色块，看事件的传播路径</h3>
+        <div class="box outer">外层
+            <div class="box middle">中层
+                <div class="box inner">内层</div>
+            </div>
+        </div>
+        <ol id="log"></ol>
+        <script>
+            const logEl = document.getElementById('log');
+            function log(text) {
+                const li = document.createElement('li');
+                li.textContent = text;
+                logEl.appendChild(li);
+            }
+
+            // document 捕获监听最先触发：当一次点击的分隔线，顺带证明 document 是路径的起点
+            document.addEventListener('click', (event) => {
+                log(`───── 点了 .${event.target.classList[1]} ─────`);
+            }, true);
+
+            // addEventListener 第三个参数 true = 捕获阶段监听；默认 false = 冒泡阶段监听
+            document.querySelector('.outer').addEventListener('click', () => log('外层 · 捕获'), true);
+            document.querySelector('.middle').addEventListener('click', () => log('中层 · 捕获'), true);
+            document.querySelector('.inner').addEventListener('click', () => log('内层 · 目标'));
+            document.querySelector('.middle').addEventListener('click', () => log('中层 · 冒泡'));
+            document.querySelector('.outer').addEventListener('click', () => log('外层 · 冒泡'));
+            document.addEventListener('click', () => log('document · 冒泡（路径终点）'));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>rest example</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body{
+        font:14px/1.7 sans-serif;
+        margin:0;
+        padding:16px;
+    }
+    button{
+        font:inherit;
+        margin:0 4px;
+        padding:4px 10px;
+    }
+    form{
+        margin:12px 0;
+    }
+    form input{
+        margin:0 4px;
+    }
+    #list{
+        padding-left:20px;
+    }
+    #list li{
+        margin:4px 0;
+        cursor:pointer;
+    }
+    #detail{
+        margin-top:12px;
+        padding:8px 12px;
+        background:#f5f5f5;
+        min-height:20px;
+    }
+  </style>
+</head>
+
+<body>
+<h2>帖子资源 /posts</h2>
+<form id="new">
+    <input name="title" placeholder="标题" required>
+    <input name="body" placeholder="正文" required>
+    <button>新建（POST）</button>
+</form>
+<form id="find">
+    <input name="id" placeholder="id，试试 99" required>
+    <button>查看（GET /posts/:id）</button>
+</form>
+<ol id="list"></ol>
+<div id="detail">（点上面的条目看正文）</div>
+<script src="app.js"></script>
+</body>
+</html>

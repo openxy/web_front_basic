@@ -363,6 +363,59 @@
   runtime: static
   edit_run: true
 
+- slug: restful/rest-get
+  title: GET 列表
+  summary: fetch GET /posts 拿资源集合渲染：URL 即资源地址、方法即意图、JSON 做表示
+  seq: 1
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-get-id
+  title: GET 单个资源
+  summary: 点条目 GET /posts/:id：路径参数定位单个资源，正文渲染进详情区
+  seq: 2
+  parent: rest-get
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-post
+  title: POST 新建
+  summary: 表单收集数据 JSON 序列化 POST /posts：id 由服务器生成，201 应答回新资源
+  seq: 3
+  parent: rest-get-id
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-put
+  title: PUT 全量更新
+  summary: 每条带「改」按钮：PUT /posts/:id 把整个对象送回服务器全量替换，200 应答
+  seq: 4
+  parent: rest-post
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-delete
+  title: DELETE 删除
+  summary: 每条带「删」按钮：DELETE /posts/:id 一发资源即逝，204 空应答——增删改查凑齐
+  seq: 5
+  parent: rest-put
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-error
+  title: 状态码与错误处理
+  summary: 查任意 id：404 走 res.ok 分支红字提示，网络异常归 try/catch——HTTP 状态码是唯一真相
+  seq: 6
+  parent: rest-delete
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
 - slug: scope-closure/global-clash
   title: 全局撞名
   summary: 两个脚本各自 var count：全局命名空间只有一张桌子，计数器每秒自己涨——事故现场
@@ -554,6 +607,15 @@
   summary: 删除不再逐个绑：监听器只挂 tbody 一个，靠事件冒泡接住所有行的点击，event.target + closest 定位链接与所属行，新增行天然被覆盖
   seq: 2
   parent: table-row/event-bind
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/propagation
+  title: 事件传播三阶段
+  summary: 委托的底层机制拆开看：捕获→目标→冒泡一条固定路线，三层嵌套色块逐段打日志，stopPropagation 可在任何一层截停
+  seq: 2.01
+  parent: delegation
   entry: index.html
   runtime: static
   edit_run: true
