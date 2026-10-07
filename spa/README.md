@@ -29,6 +29,7 @@
 | 07.01 | [jquery 视图变体](#v=spa/jquery-view) | 视图层换 jQuery，对照 07 的原生实现 |
 | 08.01 | [$.ajax 变体](#v=spa/jquery-ajax) | 数据层换 $.ajax，对照 08 的 fetch |
 | 10.01 | [包管理 bower](#v=spa/bower) | 依赖安装自动化，对照 10 的手工拷贝 |
+| 06.01 | [RequireJS 与 AMD](#v=spa/requirejs) | ESM 之前的浏览器模块方案（define/依赖数组/加载器），对照 06 的原生 ES 模块 |
 
 ## 重点与边界
 

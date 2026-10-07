@@ -531,6 +531,15 @@
   runtime: static
   edit_run: true
 
+- slug: spa/requirejs
+  title: RequireJS 与 AMD
+  summary: es-modules 的分支：ESM 之前的浏览器模块方案——define 依赖数组 + requirejs.config 路径，加载器异步拉起依赖树
+  seq: 6.01
+  parent: es-modules
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: spa/localstorage
   title: 本地存储
   summary: 数据层换成 localStorage：数据持久化，刷新不丢
