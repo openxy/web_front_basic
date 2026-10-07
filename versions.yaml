@@ -124,6 +124,59 @@
   runtime: shim
   edit_run: true
 
+- slug: js-async/sync-block
+  title: 同步长任务
+  summary: 单线程事故现场：忙等 3 秒冻住时钟与整个页面——阻塞即主线程被占死
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/timer-yield
+  title: 定时器分片
+  summary: 长任务切成 50ms 小段，setTimeout 让出主线程——时钟照走、页面不冻
+  seq: 2
+  parent: sync-block
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/callback
+  title: 回调接续
+  summary: 分片函数收 onDone 参数，做完接着做下一步——三连任务嵌套成金字塔，错误处理每层一份
+  seq: 3
+  parent: timer-yield
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/promise
+  title: Promise 链
+  summary: 未来结果对象化：三连任务从嵌套金字塔摊平成 then 链，错误处理一处 catch 收口
+  seq: 4
+  parent: callback
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/async-await
+  title: async-await
+  summary: 用同步的形状写异步：await 逐环等待接替 then 链，try/catch 一处收口
+  seq: 5
+  parent: promise
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/promise-all
+  title: 并行三连
+  summary: 互不依赖的任务不必排队：Promise.all 三路同时跑，串行 3 秒的活约 1 秒收束
+  seq: 6
+  parent: async-await
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: pcd/data
   title: 索引路径数据
   summary: 省市区树编码成扁平键："0" 是省列表，"0_2" 是第 3 个省的城市，"0_2_1" 是其第 2 市的区县
@@ -244,6 +297,121 @@
   summary: .clearfix 用 ::after 生成内容代劳空元素，HTML 结构零侵入（依《伪类、伪元素与内容生成》文档新写）
   seq: 9
   parent: float-clear
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/fixed
+  title: 固定宽度
+  summary: 960px 写死的栅格时代形态：窗口拖窄即出横向滚动条（承接 css-layout 骨架，响应式案例的起点）
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/fluid
+  title: 流体布局
+  summary: 版心 max-width + 比例栏宽，页面随窗口伸缩，横向滚动条消失
+  seq: 2
+  parent: fixed
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/img-overflow
+  title: 图片撑破容器
+  summary: 事故现场：主栏加 640px 配图，窗口变窄时图片撑破容器，横向滚动条回来了
+  seq: 3
+  parent: fluid
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/responsive-img
+  title: 图片响应式
+  summary: img{max-width:100%} 两行让图片随容器伸缩，容器与内容步调一致
+  seq: 4
+  parent: img-overflow
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/media-query
+  title: 媒体查询断点
+  summary: @media (max-width) 窄窗口单栏重排，桌面优先的响应式第一步
+  seq: 5
+  parent: responsive-img
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/mobile-first
+  title: 移动优先
+  summary: 基础样式即单栏，min-width 断点向上增强——同样两形态，方向翻转，断点由内容定
+  seq: 6
+  parent: media-query
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: responsive/auto-fit
+  title: 自适应卡片墙
+  summary: repeat(auto-fit,minmax()) 一行实现无断点卡片墙，连续换行对照断点跳变，收束全案
+  seq: 7
+  parent: mobile-first
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: scope-closure/global-clash
+  title: 全局撞名
+  summary: 两个脚本各自 var count：全局命名空间只有一张桌子，计数器每秒自己涨——事故现场
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: scope-closure/iife
+  title: IIFE 私有作用域
+  summary: 立即执行函数把各自变量包进函数内部，全局桌面清空，撞名事故消失
+  seq: 2
+  parent: global-clash
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: scope-closure/closure-counter
+  title: 闭包计数器
+  summary: createCounter 工厂返回的函数攥着自己的 n：外界不可直达、调用之间不失联，撞名从根上不可能
+  seq: 3
+  parent: iife
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: scope-closure/loop-trap
+  title: 循环陷阱
+  summary: var 循环给三个按钮挂监听，点谁都显示 3：闭包捕获的是同一个绑定，工具变陷阱
+  seq: 4
+  parent: closure-counter
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: scope-closure/let-fix
+  title: let 一词修复
+  summary: var 改 let 一词：每轮循环独立绑定，三个按钮各自报出自己的编号
+  seq: 5
+  parent: loop-trap
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: scope-closure/module
+  title: ES 模块作用域
+  summary: script 标 type=module 文件即作用域：IIFE 外壳拆除，撞名在语言层面不可能，收束全案
+  seq: 6
+  parent: let-fix
   entry: index.html
   runtime: static
   edit_run: true

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>responsive layout example</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+
+    body{
+        font:14px/1.7 sans-serif;
+        margin:0;
+    }
+    .hd,.ft{
+        max-width:960px;               /* 上限代替写死：宽于 960 居中，窄于 960 整体收缩 */
+        margin:0 auto;
+    }
+    .hd{
+        background:#333;
+        color:#fff;
+        padding:0 12px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        height:44px;
+    }
+    .page{
+        max-width:960px;               /* 版心同宽：多栏容器与页头页脚对齐 */
+        margin:0 auto;
+        display:grid;
+        grid-template-columns:3fr 1fr;
+        gap:12px;
+    }
+    .main{
+        background:skyblue;
+    }
+    .side{
+        background:wheat;
+    }
+    .ft{
+        background:#eee;
+        color:#555;
+        padding:8px 12px;
+        text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+<div class="hd"><b>MySite</b> <span>首页 · 课程 · 关于</span> <span>登录</span></div>
+<div class="page">
+    <div class="main">
+        <h2>同一页面，多种屏幕</h2>
+        <p>桌面显示器、平板、手机，视口宽度从一千多像素到三百多像素。这一组版本回答同一个问题：一套页面代码，怎么在多宽的屏幕上都好用。</p>
+        <p>起点是固定宽度布局：整页写死 960 像素，正是栅格时代的标准做法。把运行窗口拖窄到 960 像素以内，横向滚动条立刻出现——这就是本案例要解决的问题。</p>
+        <img src="pic.svg" width="640" alt="视口宽度谱系：桌面 1280、平板 768、手机 375 的横条对比">
+    </div>
+    <div class="side">
+        <h3>侧栏</h3>
+        <p>侧栏窄，主栏宽。窗口变窄时两栏如何伸缩、何时放弃双栏改单栏，是贯穿这一组版本的观察点。</p>
+    </div>
+</div>
+<div class="ft">页脚 · 响应式演化演示</div>
+</body>
+</html>

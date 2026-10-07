@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>scope example</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body{
+        font:14px/1.7 sans-serif;
+        margin:0;
+        padding:16px;
+    }
+    .num{
+        font-size:28px;
+        font-family:monospace;
+        background:#333;
+        color:#0f0;
+        padding:8px 16px;
+        display:inline-block;
+        min-width:60px;
+        text-align:center;
+    }
+    button{
+        font:inherit;
+        margin:12px 8px 12px 0;
+        padding:6px 16px;
+    }
+  </style>
+</head>
+
+<body>
+<h2>计数器与秒表</h2>
+<p>计数（点按钮加一）：<span class="num" id="count">0</span></p>
+<button id="inc">加一</button>
+<p>秒表（每秒自走）：<span class="num" id="sec">0</span></p>
+<p>按钮编号（点下方按钮）：<span class="num" id="probe">-</span></p>
+<button class="probe">按钮 0</button>
+<button class="probe">按钮 1</button>
+<button class="probe">按钮 2</button>
+<script src="counter.js"></script>
+<script src="timer.js"></script>
+<script>
+// 给三个编号按钮挂监听：点谁显示谁的编号——真的吗？
+var btns = document.querySelectorAll('.probe');
+for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', () => {
+        document.querySelector('#probe').textContent = i;
+    });
+}
+</script>
+</body>
+</html>

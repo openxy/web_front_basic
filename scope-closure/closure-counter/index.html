@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>scope example</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body{
+        font:14px/1.7 sans-serif;
+        margin:0;
+        padding:16px;
+    }
+    .num{
+        font-size:28px;
+        font-family:monospace;
+        background:#333;
+        color:#0f0;
+        padding:8px 16px;
+        display:inline-block;
+        min-width:60px;
+        text-align:center;
+    }
+    button{
+        font:inherit;
+        margin:12px 0;
+        padding:6px 16px;
+    }
+  </style>
+</head>
+
+<body>
+<h2>计数器与秒表</h2>
+<p>计数（点按钮加一）：<span class="num" id="count">0</span></p>
+<button id="inc">加一</button>
+<p>秒表（每秒自走）：<span class="num" id="sec">0</span></p>
+<script src="counter.js"></script>
+<script src="timer.js"></script>
+</body>
+</html>

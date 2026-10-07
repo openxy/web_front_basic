@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>async example</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body{
+        font:14px/1.7 sans-serif;
+        margin:0;
+        padding:16px;
+    }
+    .clock{
+        font-size:28px;
+        font-family:monospace;
+        background:#333;
+        color:#0f0;
+        padding:8px 16px;
+        display:inline-block;
+    }
+    button{
+        font:inherit;
+        margin:12px 0;
+        padding:6px 16px;
+    }
+    #log{
+        margin:8px 0 0;
+        padding-left:20px;
+    }
+    #log li{
+        font-family:monospace;
+    }
+  </style>
+</head>
+
+<body>
+<h2>单线程剧场</h2>
+<div class="clock" id="clock">00:00:00.0</div>
+<p>上面的时钟由 setInterval 每 100 毫秒刷新一次，它是这组版本的「心跳监测仪」：时钟还在走，说明主线程还能喘气。</p>
+<button id="run">分片计算 3 秒</button>
+<ol id="log"></ol>
+<script src="app.js"></script>
+</body>
+</html>

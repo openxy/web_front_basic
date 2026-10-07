@@ -22,4 +22,4 @@
 ## 重点与边界
 
 - 重点：每代解决了什么、又留下什么；等高列与栏间距在八代里的不同答案（贴住 → 剩余百分比 → gutter margin → gap）；「一维用 Flex、二维用 Grid」的选型经验
-- 边界：浮动本身与塌陷清除的机理（见 position 案例浮动四部曲）、响应式设计与媒体查询、CSS 框架（bootstrap/tailwind）不在本案例
+- 边界：浮动本身与塌陷清除的机理（见 position 案例浮动四部曲）、响应式设计与媒体查询（续篇见 responsive 案例）、CSS 框架（bootstrap/tailwind）不在本案例
