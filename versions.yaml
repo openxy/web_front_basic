@@ -177,6 +177,25 @@
   runtime: static
   edit_run: true
 
+- slug: lazysizes/scroll-polling
+  title: scroll 事件轮询懒加载
+  summary: 上游 1.5.0：scroll/resize 事件加节流，轮询检查视口内图片——懒加载的经典实现形态
+  seq: 1
+  from: github:aFarkas/lazysizes@1.5.0
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: lazysizes/intersection-observer
+  title: IntersectionObserver 原生观察
+  summary: 上游 4.1.0：浏览器原生 IntersectionObserver 取代 scroll 事件轮询——技术被平台能力取代的演进样本
+  seq: 2
+  from: github:aFarkas/lazysizes@4.1.0
+  parent: scroll-polling
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: pcd/data
   title: 索引路径数据
   summary: 省市区树编码成扁平键："0" 是省列表，"0_2" 是第 3 个省的城市，"0_2_1" 是其第 2 市的区县
