@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>图片画廊 · 模态框预览</title>
+        <style>
+            .gallery { display: grid; grid-template-columns: repeat(4, 140px); gap: 12px; }
+            .gallery figure { margin: 0; text-align: center; }
+            .gallery img { width: 140px; height: 100px; display: block; border-radius: 6px; cursor: pointer; }
+            .gallery figcaption { font-size: 13px; margin-top: 4px; }
+            .gallery .picked { outline: 3px solid #f60; outline-offset: 2px; }
+            .gallery .like { margin-top: 4px; font-size: 12px; cursor: pointer; }
+            .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); }
+            .overlay.show { display: flex; align-items: center; justify-content: center; }
+            .preview { margin: 0; text-align: center; }
+            .preview img { width: 560px; max-width: 90vw; height: auto; border-radius: 8px; }
+            .preview figcaption { color: #fff; font-size: 15px; margin-top: 8px; }
+        </style>
+    </head>
+    <body>
+        <div class="gallery"></div>
+        <button id="more">加载更多</button>
+        <div id="overlay" class="overlay">
+            <figure class="preview">
+                <img id="previewImg" src="" alt="">
+                <figcaption id="previewTitle"></figcaption>
+            </figure>
+        </div>
+        <script>
+            // 图片数据：真实项目来自接口，这里用内联 SVG 渐变当图，零外部请求
+            const photos = [
+                { id: 1, title: '山景', from: '#a8e063', to: '#56ab2f' },
+                { id: 2, title: '海景', from: '#6dd5ed', to: '#2193b0' },
+                { id: 3, title: '城市夜景', from: '#4b6cb7', to: '#182848' },
+                { id: 4, title: '森林', from: '#b7e9a6', to: '#2d6a4f' },
+                { id: 5, title: '沙漠', from: '#f6d365', to: '#c79081' },
+                { id: 6, title: '雪山', from: '#e0eafc', to: '#8ea6c8' },
+                { id: 7, title: '瀑布', from: '#a1c4fd', to: '#3a7bd5' },
+                { id: 8, title: '日出', from: '#ffd89b', to: '#f4860a' }
+            ];
+
+            // 备用图片：点「加载更多」时补进来
+            const pool = [
+                { id: 9, title: '梯田', from: '#f8f5b3', to: '#a1c44a' },
+                { id: 10, title: '峡谷', from: '#f2c684', to: '#9e5c33' },
+                { id: 11, title: '湖泊', from: '#c9f2f7', to: '#4d8fae' }
+            ];
+
+            // SVG 渐变转 data URI，当一张「图」用
+            function photoUrl(p, w, h) {
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">` +
+                    `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">` +
+                    `<stop offset="0" stop-color="${p.from}"/><stop offset="1" stop-color="${p.to}"/>` +
+                    `</linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/></svg>`;
+                return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+            }
+
+            // 一张图的 HTML：初始渲染与追加共用同一份模板
+            function figHtml(p) {
+                return `
+                    <figure data-id="${p.id}">
+                        <img src="${photoUrl(p, 280, 200)}" alt="${p.title}">
+                        <figcaption>${p.title}</figcaption>
+                        <button class="like">👍 0</button>
+                    </figure>`;
+            }
+
+            // 数据驱动渲染：数据拼成 HTML，一次性放进容器——元素是运行时诞生的
+            function render() {
+                document.querySelector('.gallery').innerHTML = photos.map(figHtml).join('');
+            }
+
+            // 追加新图：拼好的 HTML 接在容器现有内容之后
+            document.getElementById('more').addEventListener('click', () => {
+                document.querySelector('.gallery').insertAdjacentHTML('beforeend', pool.map(figHtml).join(''));
+            });
+
+            // 模态框：把点中的图放大展示；e.target 区分点的是遮罩还是内容——只有遮罩自身才关闭
+            const overlay = document.getElementById('overlay');
+            function openPreview(fig) {
+                document.getElementById('previewImg').src = fig.querySelector('img').src;
+                document.getElementById('previewTitle').textContent = fig.querySelector('figcaption').textContent;
+                overlay.classList.add('show');
+            }
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) overlay.classList.remove('show');
+            });
+
+            // 事件委托：监听器只挂容器一个，任何图的点击都冒泡到这里——包括将来才追加的图。
+            // event.target = 实际被点的元素，closest 沿祖先链找到所属 figure
+            document.querySelector('.gallery').addEventListener('click', (event) => {
+                const like = event.target.closest('.like');
+                if (like) { // 点赞：只改按钮自己的数字，不该因此弹出大图——先甄别、早返回
+                    like.textContent = `👍 ${Number(like.textContent.replace(/\D/g, '')) + 1}`;
+                    return;
+                }
+                const fig = event.target.closest('figure');
+                if (!fig) return; // 点的不是图（比如格子间隙），不管
+                document.querySelectorAll('.picked').forEach(el => el.classList.remove('picked'));
+                fig.classList.add('picked');
+                openPreview(fig); // 点图：高亮之外，再开大图预览
+            });
+
+            render();
+        </script>
+    </body>
+</html>

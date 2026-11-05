@@ -124,6 +124,41 @@
   runtime: shim
   edit_run: true
 
+- slug: gallery/render
+  title: 动态渲染
+  summary: 数据驱动渲染起步：数据数组拼成 HTML 一次性放进容器，元素是运行时诞生的；渲染完逐个直接绑定，初始图点击高亮
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: gallery/load-more-fail
+  title: 加载更多事故
+  summary: 点击「加载更多」追加新图，新图却点不动——直接绑定只覆盖绑定那一刻已存在的元素，事故运行可见
+  seq: 2
+  parent: render
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: gallery/delegation
+  title: 事件委托修复
+  summary: 监听器从每张图挪到容器一个：冒泡接住所有点击，event.target + closest 甄别目标——加载更多的新图天然被覆盖
+  seq: 3
+  parent: load-more-fail
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: gallery/modal-preview
+  title: 模态框预览
+  summary: 委托扩展：点图开大图模态框、点遮罩自身关闭——e.target 区分点的是谁；点赞按钮甄别后早返回，不打架
+  seq: 4
+  parent: delegation
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: js-async/sync-block
   title: 同步长任务
   summary: 单线程事故现场：忙等 3 秒冻住时钟与整个页面——阻塞即主线程被占死
