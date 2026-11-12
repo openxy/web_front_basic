@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>诗文 - 诗豪小筑</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<header class="site-header">
+<p class="site-title">诗豪小筑</p>
+<nav>
+<ul>
+<li><a href="../index.html">首页</a></li>
+<li><a class="active" href="../posts/index.html">文章</a></li>
+<li><a href="../tags/index.html">标签</a></li>
+<li><a href="../about.html">关于</a></li>
+<li><a href="../sitemap.html">站点地图</a></li>
+</ul>
+</nav>
+</header>
+
+<div class="site-body">
+<main>
+<article class="post-full" id="post-full">
+</article>
+</main>
+
+<aside class="sidebar">
+<h2>分类导航</h2>
+<ul>
+<li><a href="../posts/index.html?category=诗">诗（6）</a></li>
+<li><a href="../posts/index.html?category=词">词（1）</a></li>
+<li><a href="../posts/index.html?category=文">文（1）</a></li>
+</ul>
+</aside>
+</div>
+
+<footer class="site-footer"><p>诗豪小筑 · 个人博客演示项目 · 内容取材刘禹锡诗文</p></footer>
+
+<script src="../lib/data.js"></script>
+<script>
+const ROOT = '..'
+
+const id = Number(new URLSearchParams(location.search).get('id'))
+const post = DATA.posts.find(p => p.id === id)
+
+if (!post) {
+  document.title = '诗文不存在 - 诗豪小筑'
+  document.getElementById('post-full').innerHTML = '<h1>诗文不存在</h1><p class="meta">请从<a href="../posts/index.html">诗文列表</a>进入。</p>'
+} else {
+  document.title = post.title + ' - 诗豪小筑'
+
+  const figure = post.figure
+    ? `<figure class="poem-fig">
+<img src="${ROOT}/${post.figure.src}" alt="${post.figure.alt}">
+<figcaption>${post.figure.caption}</figcaption>
+</figure>
+
+`
+    : ''
+  const notes = post.annotation.notes
+    .map(([term, def]) => `<dt>${term}</dt>
+<dd>${def}</dd>`)
+    .join('\n')
+  const comments = DATA.comments.filter(c => c.postId === post.id)
+  const commentItems = comments.length
+    ? comments.map(c => `<li><strong>${c.author}</strong>（${c.date}）：${c.body}</li>`).join('\n')
+    : '<li>还没有评论，来写第一条。</li>'
+
+  document.getElementById('post-full').innerHTML = `<header>
+<h1>${post.title}</h1>
+<p class="meta">${post.pinned ? '<mark>置顶</mark> · ' : ''}<time>${post.date}</time> · ${post.category} · 标签：${post.tags.map(t => `<a href="../posts/index.html?tag=${t}">${t}</a>`).join('、')}</p>
+</header>
+
+${figure}<div class="poem-body">
+${post.body}
+</div>
+
+<section class="annotation">
+<h2>题解</h2>
+<p>${post.annotation.jieti}</p>
+<h2>注释</h2>
+<dl>
+${notes}
+</dl>
+<p class="source">出处：${post.annotation.source}</p>
+</section>
+
+<section class="comments">
+<h2>评论</h2>
+<ul>
+${commentItems}
+</ul>
+
+<form action="#" method="post">
+<fieldset>
+<legend>发表评论</legend>
+<p><label for="author">称呼</label> <input id="author" name="author" type="text" required></p>
+<p><label for="body">留言</label> <textarea id="body" name="body" rows="4" required></textarea></p>
+<p><button type="submit">提交评论</button></p>
+</fieldset>
+</form>
+</section>`
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页 - 诗豪小筑</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+<script src="lib/data.js"></script>
+<script src="lib/store.js"></script>
+<script src="lib/view.js"></script>
+<script>
+const ROOT = '.'
+
+const mainHtml = `<section class="post-list">
+<h1>最新诗文</h1>
+
+${sortPosts(fetchResource('post')).map(p => renderPostCard(ROOT, p)).join('\n\n')}
+</section>`
+
+renderPage(ROOT, '首页', mainHtml)
+</script>
+
+</body>
+</html>

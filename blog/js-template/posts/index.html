@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>诗文列表 - 诗豪小筑</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<script src="../lib/data.js"></script>
+<script src="../lib/view.js"></script>
+<script>
+const ROOT = '..'
+
+const params = new URLSearchParams(location.search)
+const category = params.get('category')
+const tag = params.get('tag')
+
+let posts = sortPosts(DATA.posts)
+let label = `共 ${posts.length} 篇，置顶优先，其余按年代降序`
+if (category) {
+  posts = posts.filter(p => p.category === category)
+  label = `分类「${category}」共 ${posts.length} 篇`
+} else if (tag) {
+  posts = posts.filter(p => p.tags.includes(tag))
+  label = `标签「${tag}」共 ${posts.length} 篇`
+}
+
+const mainHtml = `<section class="post-index">
+<h1>诗文列表</h1>
+<p class="meta">${label}</p>
+<ul class="post-toc">
+${posts.map(p => renderPostRow(ROOT, p)).join('\n')}
+</ul>
+</section>`
+
+renderPage(ROOT, '文章', mainHtml)
+</script>
+
+</body>
+</html>

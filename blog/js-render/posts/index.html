@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文章 - 诗豪小筑</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<header class="site-header">
+<p class="site-title">诗豪小筑</p>
+<nav>
+<ul>
+<li><a href="index.html">首页</a></li>
+<li><a class="active" href="posts/index.html">文章</a></li>
+<li><a href="tags/index.html">标签</a></li>
+<li><a href="about.html">关于</a></li>
+<li><a href="sitemap.html">站点地图</a></li>
+</ul>
+</nav>
+</header>
+
+<div class="site-body">
+<main>
+<section class="post-index">
+<h1>诗文列表</h1>
+<p class="meta" id="post-summary"></p>
+<ul class="post-toc" id="post-toc"></ul>
+</aside>
+</div>
+
+<footer class="site-footer"><p>诗豪小筑 · 个人博客演示项目 · 内容取材刘禹锡诗文</p></footer>
+
+<script src="../lib/data.js"></script>
+<script>
+const ROOT = '..'
+
+function renderRow(post) {
+  return `<li><a href="${ROOT}/posts/show.html?id=${post.id}">${post.title}</a>（${post.category} · ${post.date}）</li>`
+}
+
+const params = new URLSearchParams(location.search)
+const category = params.get('category')
+const tag = params.get('tag')
+
+let posts = [...DATA.posts].sort((a, b) => (b.pinned - a.pinned) || (b.year - a.year))
+let label = `共 ${posts.length} 篇，置顶优先，其余按年代降序`
+if (category) {
+  posts = posts.filter(p => p.category === category)
+  label = `分类「${category}」共 ${posts.length} 篇`
+} else if (tag) {
+  posts = posts.filter(p => p.tags.includes(tag))
+  label = `标签「${tag}」共 ${posts.length} 篇`
+}
+
+document.getElementById('post-toc').innerHTML = posts.map(renderRow).join('\n')
+document.getElementById('post-summary').textContent = label
+</script>
+
+</body>
+</html>

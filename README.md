@@ -8,6 +8,7 @@
 
 | 案例 | 教什么 | 版本数 |
 | --- | --- | --- |
+| [`blog/`](blog/README.md) | 个人博客综合案例：一页 HTML 到全栈单页应用，串接全课程（前台 HTML/CSS → 后台 JS → 同步/异步存储 → SPA） | 13 |
 | [`css-layout/`](css-layout/README.md) | CSS 布局演化：表格→display:table→浮动→960 栅格→flex→grid，同一骨架八代重写 | 8 |
 | [`spa/`](spa/README.md) | 博客应用形态演进主线：文件→静态→模板→路由→CRUD→数据层→ESM→存储→REST→async→构建（另 jquery/ajax/bower/requirejs 4 个分支） | 15 |
 | [`position/`](position/README.md) | CSS 定位与浮动：四种定位机制 + z 轴 + 浮动四部曲（原课程页面原样入册） | 9 |

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>标签 - 诗豪小筑</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<header class="site-header">
+<p class="site-title">诗豪小筑</p>
+<nav>
+<ul id="tag-list"></ul>
+</aside>
+</div>
+
+<footer class="site-footer"><p>诗豪小筑 · 个人博客演示项目 · 内容取材刘禹锡诗文</p></footer>
+
+<script src="../lib/data.js"></script>
+<script>
+const counts = {}
+DATA.posts.forEach(post => {
+  post.tags.forEach(t => { counts[t] = (counts[t] || 0) + 1 })
+})
+
+const tags = Object.keys(counts).sort((a, b) => counts[b] - counts[a])
+document.getElementById('tag-list').innerHTML = tags
+  .map(t => `<li><a href="../posts/index.html?tag=${t}">${t}</a>（${counts[t]} 篇）</li>`)
+  .join('\n')
+</script>
+
+</body>
+</html>

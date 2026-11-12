@@ -1,5 +1,121 @@
 # 前端教学案例集 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
 
+- slug: blog/first-page
+  title: 首页骨架
+  summary: 一页语义 HTML 起站：内容类型 Post 先行分字段，header/nav/article/footer 区块就位，样式与链接都是后续版本的钩子
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/site-pages
+  title: 多页成型
+  summary: 首页/列表/详情/标签/关于五类页面互跳，评论表单控件就位；平铺文件名是 URL 布局的反面初稿
+  seq: 2
+  parent: first-page
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/resource-urls
+  title: 资源式 URL 布局
+  summary: 平铺页面按资源归位：posts/index、posts/show-N、tags/index、assets 三件套，站点地图页随布局立起来
+  seq: 3
+  parent: site-pages
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/css-basics
+  title: 全站样式
+  summary: 一份共享 style.css 上妆：选择器、文字与颜色、盒子模型；置顶高亮与区块样式此刻亮起来
+  seq: 4
+  parent: resource-urls
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/layout
+  title: 布局与区块
+  summary: 主栏加分类导航侧栏成两栏版式：grid 布局登场，站点头/底/导航与分类菜单按区块归位
+  seq: 5
+  parent: css-basics
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/responsive
+  title: 响应式
+  summary: 一段媒体查询完成移动适配：窄屏两栏叠一栏、侧栏移后——纯样式层改版，HTML 字节不动
+  seq: 6
+  parent: layout
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/js-render
+  title: 数据与渲染
+  summary: 诗文与评论进 lib/data.js，首页/列表/详情/标签改由 JS 渲染：十个详情文件并成一个模板页
+  seq: 7
+  parent: responsive
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/js-template
+  title: 页面模板
+  summary: 站点模板与内容模板收进 lib/view.js：页面=模板+数据，各页脚本瘦身为取数与拼装
+  seq: 8
+  parent: js-render
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/js-events
+  title: 事件与交互
+  summary: 列表页长出筛选条与分页器：事件监听注册、事件委托，状态驱动局部重渲
+  seq: 9
+  parent: js-template
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/admin
+  title: 后台管理
+  summary: admin/ 后台三页（博文列表·新建/编辑表单·评论管理）：表格增删改置顶、搜索筛选、表单校验，访客与站长的站点模板分野
+  seq: 10
+  parent: js-events
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/store-sync
+  title: 本地存储
+  summary: lib/store.js 接管全部数据读写：localStorage 同步实现、自增 id、首次加载播种；前台评论表单就此兑现
+  seq: 11
+  parent: admin
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/store-rest
+  title: REST 接口
+  summary: store.js 同名接口换 fetch 调 REST（模拟接口可真连 json-server）：调用方全改 async/await，create/update/destroy 三动作就此兑现
+  seq: 12
+  parent: store-sync
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: blog/spa
+  title: 单页应用
+  summary: hash 路由合体前后台：一张路由表收编全部页面，站点地图由路由表生成，URL 收敛为 #/posts/1 形态
+  seq: 13
+  parent: store-rest
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
 - slug: css-layout/table
   title: 表格布局
   summary: 拿 table 语义标记凑页面骨架：等高列天然成立，代价是 HTML 堆满语义无关的标记

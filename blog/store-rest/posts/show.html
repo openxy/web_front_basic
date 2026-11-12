@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>诗文 - 诗豪小筑</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<script src="../lib/store.js"></script>
+<script src="../lib/view.js"></script>
+<script>
+const ROOT = '..'
+
+const id = Number(new URLSearchParams(location.search).get('id'))
+
+function commentsOf(comments) {
+  return comments.filter(c => c.postId === id)
+}
+
+function renderComments(comments) {
+  const items = comments.length
+    ? comments.map(c => `<li><strong>${c.author}</strong>（${c.date}）：${c.body}</li>`).join('\n')
+    : '<li>还没有评论，来写第一条。</li>'
+  document.querySelector('.comments ul').innerHTML = items
+}
+
+async function init() {
+  let post
+  try {
+    post = await fetchResource('post', id)
+  } catch (err) {
+    renderPage(ROOT, '文章', `<article class="post-full">
+<h1>诗文不存在</h1>
+<p class="meta">请从<a href="${ROOT}/posts/index.html">诗文列表</a>进入。</p>
+</article>`)
+    return
+  }
+
+  document.title = post.title + ' - 诗豪小筑'
+  const comments = commentsOf(await fetchResource('comment'))
+  renderPage(ROOT, '文章', `<article class="post-full">
+${renderPostFull(ROOT, post, comments)}
+</article>`)
+
+  // 匿名评论：提交发给接口并就地重渲评论列表
+  document.getElementById('post-full').addEventListener('submit', async e => {
+    e.preventDefault()
+    const form = e.target
+    const body = form.body.value.trim()
+    if (!body) return
+    await saveResource('comment', { postId: id, author: form.author.value.trim() || '匿名', body, date: new Date().toLocaleDateString('zh-CN') })
+    form.reset()
+    renderComments(commentsOf(await fetchResource('comment')))
+  })
+}
+
+init()
+</script>
+
+</body>
+</html>

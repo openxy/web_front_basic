@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>博文管理 - 诗豪小筑</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body>
+<script src="../../lib/data.js"></script>
+<script src="../../lib/view.js"></script>
+<script>
+const ROOT = '..'
+const state = { keyword: '', category: '' }
+
+function renderTable() {
+  let posts = DATA.posts
+  if (state.keyword) posts = posts.filter(p => p.title.includes(state.keyword))
+  if (state.category) posts = posts.filter(p => p.category === state.category)
+  document.getElementById('admin-summary').textContent = `共 ${posts.length} 篇`
+  document.getElementById('admin-tbody').innerHTML = posts.map(p => renderAdminPostRow(ROOT, p)).join('\n')
+}
+
+renderAdminPage(ROOT, '博文管理', `<section>
+<h1>博文管理</h1>
+<p class="meta" id="admin-summary"></p>
+<p class="filter-bar">
+<input id="search" type="text" placeholder="按标题搜索">
+<select id="filter-category"><option value="">全部分类</option>${['诗', '词', '文'].map(c => `<option>${c}</option>`).join('')}</select>
+<a class="btn" href="new.html">新建诗文</a>
+</p>
+<table class="admin-table">
+<thead><tr><th>id</th><th>标题</th><th>分类</th><th>年代</th><th>置顶</th><th>操作</th></tr></thead>
+<tbody id="admin-tbody"></tbody>
+</table>
+</section>`)
+
+document.getElementById('search').addEventListener('input', e => {
+  state.keyword = e.target.value.trim()
+  renderTable()
+})
+
+document.getElementById('filter-category').addEventListener('change', e => {
+  state.category = e.target.value
+  renderTable()
+})
+
+// 行内操作按钮动态生成，委托给表体容器
+document.getElementById('admin-tbody').addEventListener('click', e => {
+  const btn = e.target.closest('button')
+  if (!btn) return
+  const id = Number(btn.dataset.id)
+  if (btn.dataset.action === 'delete') {
+    DATA.posts = DATA.posts.filter(p => p.id !== id)
+  } else if (btn.dataset.action === 'pin') {
+    const post = DATA.posts.find(p => p.id === id)
+    post.pinned = !post.pinned
+  }
+  renderTable()
+})
+
+renderTable()
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>标签 - 诗豪小筑</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+<script src="../lib/data.js"></script>
+<script src="../lib/view.js"></script>
+<script>
+const ROOT = '..'
+
+const counts = tagCounts(DATA.posts)
+const tags = Object.keys(counts).sort((a, b) => counts[b] - counts[a])
+
+const mainHtml = `<section class="tag-list">
+<h1>标签</h1>
+<p class="meta">按热度（关联篇数）降序</p>
+<ul>
+${tags.map(t => `<li><a href="${ROOT}/posts/index.html?tag=${t}">${t}</a>（${counts[t]} 篇）</li>`).join('\n')}
+</ul>
+</section>`
+
+renderPage(ROOT, '标签', mainHtml)
+</script>
+
+</body>
+</html>

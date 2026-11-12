@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>评论管理 - 诗豪小筑</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body>
+<script src="../../lib/store.js"></script>
+<script src="../../lib/view.js"></script>
+<script>
+const ROOT = '..'
+
+async function renderTable() {
+  const comments = await fetchResource('comment')
+  const posts = await fetchResource('post')
+  document.getElementById('admin-summary').textContent = `共 ${comments.length} 条`
+  document.getElementById('admin-tbody').innerHTML = comments.map(c => renderAdminCommentRow(ROOT, c, posts)).join('\n')
+}
+
+renderAdminPage(ROOT, '评论管理', `<section>
+<h1>评论管理</h1>
+<p class="meta" id="admin-summary"></p>
+<table class="admin-table">
+<thead><tr><th>id</th><th>来源诗文</th><th>称呼</th><th>内容</th><th>日期</th><th>操作</th></tr></thead>
+<tbody id="admin-tbody"></tbody>
+</table>
+</section>`)
+
+document.getElementById('admin-tbody').addEventListener('click', async e => {
+  const btn = e.target.closest('button')
+  if (!btn || btn.dataset.action !== 'delete') return
+  await deleteResource('comment', Number(btn.dataset.id))
+  renderTable()
+})
+
+renderTable()
+</script>
+
+</body>
+</html>

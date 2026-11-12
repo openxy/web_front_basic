@@ -1,0 +1,163 @@
+/* 诗豪小筑 · 全站样式（v4：选择器、文字、盒子模型；布局见后续版本） */
+body {
+  font-family: "Noto Serif SC", "Songti SC", SimSun, serif;
+  color: #2c3a47;
+  background: #f7f4ee;
+  margin: 0;
+}
+
+a { color: #1a6b54; }
+a:hover { color: #0e4636; }
+
+.site-header {
+  background: #1f3d2f;
+  color: #f7f4ee;
+  padding: 0.5rem 1.5rem;
+}
+
+.site-title {
+  font-size: 1.4rem;
+  letter-spacing: 0.3em;
+  margin: 0.3rem 0;
+}
+
+.site-header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.site-header a { color: #d8e6dd; text-decoration: none; }
+.site-header a.active { color: #ffd97a; border-bottom: 2px solid #ffd97a; }
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.post {
+  background: #ffffff;
+  border: 1px solid #e3ddcf;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.post h2 { margin: 0.2rem 0 0.4rem; }
+.post h2 a { text-decoration: none; }
+
+.meta { color: #7a7566; font-size: 0.9rem; }
+.meta mark { background: #ffd97a; padding: 0 0.3rem; border-radius: 3px; }
+
+.excerpt { color: #55503f; }
+
+.post-toc li, .tag-list li { margin: 0.4rem 0; }
+
+.poem-fig { margin: 1rem 0; text-align: center; }
+.poem-fig img { max-width: 100%; border-radius: 6px; }
+.poem-fig figcaption { color: #7a7566; font-size: 0.9rem; margin-top: 0.4rem; }
+
+.poem-body { text-align: center; line-height: 2.1; font-size: 1.1rem; }
+.poem-body p { margin: 0; }
+
+.annotation {
+  background: #f0ece1;
+  border-radius: 6px;
+  padding: 0.2rem 1.2rem 0.8rem;
+  margin-top: 1.2rem;
+}
+.annotation h2 { font-size: 1.05rem; color: #1f3d2f; }
+.annotation dt { font-weight: bold; margin-top: 0.5rem; }
+.annotation dd { margin: 0 0 0.3rem 1.5em; color: #55503f; }
+.annotation .source { color: #7a7566; font-size: 0.9rem; }
+
+.comments form { margin-top: 1rem; }
+.comments fieldset {
+  border: 1px solid #e3ddcf;
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+}
+.comments label { margin-right: 0.5rem; color: #55503f; }
+.comments input, .comments textarea {
+  font: inherit;
+  border: 1px solid #c9c2ae;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+}
+.comments button {
+  font: inherit;
+  background: #1a6b54;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 1.2rem;
+  cursor: pointer;
+}
+
+.site-footer {
+  text-align: center;
+  color: #7a7566;
+  padding: 1.2rem;
+  border-top: 1px solid #e3ddcf;
+}
+
+/* ---- v5：布局与区块（站点模板两栏：主栏 + 分类导航侧栏） ---- */
+.site-body {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 13rem;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.site-body main { max-width: none; margin: 0; padding: 0; }
+
+.sidebar {
+  background: #ffffff;
+  border: 1px solid #e3ddcf;
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+}
+.sidebar h2 { font-size: 1rem; margin: 0.2rem 0 0.6rem; color: #1f3d2f; }
+.sidebar ul { list-style: none; margin: 0; padding: 0; }
+.sidebar li { margin: 0.35rem 0; }
+
+/* ---- v6：响应式（窄屏：两栏叠成一栏，侧栏移到正文之后） ---- */
+@media (max-width: 720px) {
+  .site-body { grid-template-columns: 1fr; }
+  .site-body .sidebar { order: 2; }
+  .site-header nav ul { flex-wrap: wrap; gap: 0.6rem 1rem; }
+  .poem-body { font-size: 1rem; }
+}
+
+/* ---- v9：列表交互控件（筛选条与分页器） ---- */
+.filter-bar { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.6rem 0 1rem; }
+.filter-bar label { color: #55503f; font-size: 0.9rem; }
+.filter-bar select { font: inherit; border: 1px solid #c9c2ae; border-radius: 4px; padding: 0.2rem 0.4rem; }
+
+.pager { display: flex; gap: 0.4rem; margin-top: 1rem; }
+.pager button { font: inherit; border: 1px solid #c9c2ae; background: #ffffff; border-radius: 4px; padding: 0.2rem 0.7rem; cursor: pointer; }
+.pager button.current { background: #1a6b54; color: #ffffff; border-color: #1a6b54; }
+
+/* ---- v10：后台管理（表格与表单） ---- */
+.admin-main { max-width: 60rem; margin: 0 auto; padding: 1.5rem; }
+
+table.admin-table { border-collapse: collapse; width: 100%; background: #ffffff; border: 1px solid #e3ddcf; }
+.admin-table th, .admin-table td { border: 1px solid #e3ddcf; padding: 0.4rem 0.6rem; text-align: left; font-size: 0.95rem; }
+.admin-table th { background: #f0ece1; }
+
+.admin-form .field { margin: 0.8rem 0; }
+.admin-form label { display: inline-block; width: 4rem; color: #55503f; }
+.admin-form input[type=text], .admin-form textarea, .admin-form select { font: inherit; border: 1px solid #c9c2ae; border-radius: 4px; padding: 0.3rem 0.5rem; width: 28rem; max-width: 100%; box-sizing: border-box; vertical-align: top; }
+.admin-form .meta { color: #7a7566; font-size: 0.85rem; }
+.admin-form .error { color: #b0433a; min-height: 1.2em; }
+
+.btn { font: inherit; border: none; border-radius: 4px; padding: 0.35rem 0.9rem; cursor: pointer; background: #1a6b54; color: #ffffff; text-decoration: none; display: inline-block; }
+.btn.secondary { background: #7a7566; }
+.btn.warn { background: #b0433a; }
+.btn.small { padding: 0.15rem 0.5rem; font-size: 0.85rem; }

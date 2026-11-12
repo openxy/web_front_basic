@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新建诗文 - 诗豪小筑</title>
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+
+<body>
+<script src="../../lib/store.js"></script>
+<script src="../../lib/view.js"></script>
+<script>
+const ROOT = '..'
+
+renderAdminPage(ROOT, '博文管理', `<section>
+<h1>新建诗文</h1>
+${renderPostForm(null)}
+</section>`)
+
+document.getElementById('post-form').addEventListener('submit', async e => {
+  e.preventDefault()
+  const error = document.getElementById('form-error')
+  const fd = new FormData(e.target)
+  const title = fd.get('title').trim()
+  if (!title) { error.textContent = '标题必填'; return }
+  if (title.length > 64) { error.textContent = '标题不超过 64 个字'; return }
+  const date = fd.get('date').trim() || '年代不详'
+  const yearMatch = date.match(/\d{3,4}/)
+  fetchResource('post').push({
+    id: Math.max(0, ...fetchResource('post').map(p => p.id)) + 1,
+    title,
+    date,
+    year: yearMatch ? Number(yearMatch[0]) : 0,
+    category: fd.get('category'),
+    tags: fd.get('tags').split(/\s+/).filter(Boolean),
+    pinned: fd.get('pinned') === 'on',
+    excerpt: fd.get('excerpt').trim() || title,
+    body: fd.get('body').split('\n').map(l => `<p>${l.trim()}</p>`).join(''),
+    annotation: { jieti: fd.get('jieti').trim(), notes: [], source: fd.get('source').trim() },
+  })
+  location.href = 'index.html'
+})
+</script>
+
+</body>
+</html>
