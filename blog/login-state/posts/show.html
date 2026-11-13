@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>诗文 - 诗豪小筑</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
@@ -20,7 +20,7 @@ const post = DATA.posts.find(p => p.id === id)
 let mainHtml
 if (!post) {
   document.title = '诗文不存在 - 诗豪小筑'
-  mainHtml = `<article class="post-full">
+  mainHtml = `<article class="post-full" id="post-full">
 <h1>诗文不存在</h1>
 <p class="meta">请从<a href="${ROOT}/posts/index.html">诗文列表</a>进入。</p>
 </article>`
@@ -28,7 +28,7 @@ if (!post) {
 } else {
   document.title = post.title + ' - 诗豪小筑'
   const comments = DATA.comments.filter(c => c.postId === post.id)
-  mainHtml = `<article class="post-full">
+  mainHtml = `<article class="post-full" id="post-full">
 ${renderPostFull(ROOT, post, comments)}
 </article>`
   renderPage(ROOT, '文章', mainHtml)

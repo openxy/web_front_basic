@@ -163,7 +163,7 @@ async function viewPostShow(params, id) {
   try {
     post = await fetchResource('post', id)
   } catch (err) {
-    await renderPage(ROOT, '文章', `<article class="post-full">
+    await renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
 <h1>诗文不存在</h1>
 <p class="meta">请从<a href="#/posts">诗文列表</a>进入。</p>
 </article>`)
@@ -182,7 +182,7 @@ async function viewPostShow(params, id) {
   }
 
   const comments = commentsOf(await fetchResource('comment'))
-  await renderPage(ROOT, '文章', `<article class="post-full">
+  await renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
 ${renderPostFull(ROOT, post, comments)}
 </article>`)
 
@@ -215,7 +215,7 @@ async function viewAbout(params) {
 <h1>关于本站</h1>
 
 <figure class="about-fig">
-<img src="assets/img/portrait.svg" alt="诗人小像（示意）">
+<img src="../assets/img/portrait.svg" alt="诗人小像（示意）">
 <figcaption>诗豪小像（示意画）</figcaption>
 </figure>
 

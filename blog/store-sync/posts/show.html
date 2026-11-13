@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>诗文 - 诗豪小筑</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
@@ -32,13 +32,13 @@ function renderComments() {
 
 if (!post) {
   document.title = '诗文不存在 - 诗豪小筑'
-  renderPage(ROOT, '文章', `<article class="post-full">
+  renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
 <h1>诗文不存在</h1>
 <p class="meta">请从<a href="${ROOT}/posts/index.html">诗文列表</a>进入。</p>
 </article>`)
 } else {
   document.title = post.title + ' - 诗豪小筑'
-  renderPage(ROOT, '文章', `<article class="post-full">
+  renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
 ${renderPostFull(ROOT, post, commentsOf())}
 </article>`)
 
