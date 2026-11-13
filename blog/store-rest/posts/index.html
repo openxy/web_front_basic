@@ -58,7 +58,7 @@ function optionList(values, current) {
 async function init() {
   allPosts = await fetchResource('post')
 
-renderPage(ROOT, '文章', `<section class="post-index">
+await renderPage(ROOT, '文章', `<section class="post-index">
 <h1>诗文列表</h1>
 <p class="meta" id="post-summary"></p>
 <div class="filter-bar">

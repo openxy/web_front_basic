@@ -32,7 +32,7 @@ async function init() {
   try {
     post = await fetchResource('post', id)
   } catch (err) {
-    renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
+    await renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
 <h1>诗文不存在</h1>
 <p class="meta">请从<a href="${ROOT}/posts/index.html">诗文列表</a>进入。</p>
 </article>`)
@@ -41,7 +41,7 @@ async function init() {
 
   document.title = post.title + ' - 诗豪小筑'
   const comments = commentsOf(await fetchResource('comment'))
-  renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
+  await renderPage(ROOT, '文章', `<article class="post-full" id="post-full">
 ${renderPostFull(ROOT, post, comments)}
 </article>`)
 
