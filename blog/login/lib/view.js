@@ -9,7 +9,6 @@ function siteNav(ROOT, active) {
     ['tags/index.html', '标签'],
     ['about.html', '关于'],
     ['sitemap.html', '站点地图'],
-    ['login.html', '登录'],
   ]
   const lis = items
     .map(([href, label]) => `<li><a class="${label === active ? 'active' : ''}" href="${ROOT}/${href}">${label}</a></li>`)
@@ -19,6 +18,7 @@ function siteNav(ROOT, active) {
 <nav>
 <ul>
 ${lis}
+<li class="auth"><a href="${ROOT}/login.html">登录</a></li>
 </ul>
 </nav>
 </header>`

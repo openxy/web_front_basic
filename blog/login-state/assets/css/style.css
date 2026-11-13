@@ -32,6 +32,9 @@ a:hover { color: #0e4636; }
 .site-header a { color: #d8e6dd; text-decoration: none; }
 .site-header a.active { color: #ffd97a; border-bottom: 2px solid #ffd97a; }
 
+/* 登录入口靠右：身份操作不与站内导航混排（导航 ul 本就是 flex，推开即可） */
+.site-header nav ul .auth { margin-left: auto; }
+
 main {
   max-width: 46rem;
   margin: 0 auto;

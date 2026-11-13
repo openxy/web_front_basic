@@ -16,8 +16,8 @@ function siteNav(ROOT, active) {
   // 登录态入口：cookie 里有人就亮身份，没人就给登录链接
   const user = getCookie('user')
   const authItem = user
-    ? `<li>当前用户：${user} · <a href="#/login?logout=1">退出登录</a></li>`
-    : `<li><a href="#/login">登录</a></li>`
+    ? `<li class="auth">当前用户：${user} · <a href="#/login?logout=1">退出登录</a></li>`
+    : `<li class="auth"><a href="#/login">登录</a></li>`
   return `<header class="site-header">
 <p class="site-title">诗豪小筑</p>
 <nav>
