@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>诗文 - 诗豪小筑</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+<script src="../lib/data.js"></script>
+<script src="../lib/auth.js"></script>
+<script src="../lib/view.js"></script>
+<script>
+const ROOT = '..'
+
+const id = Number(new URLSearchParams(location.search).get('id'))
+const post = DATA.posts.find(p => p.id === id)
+
+let mainHtml
+if (!post) {
+  document.title = '诗文不存在 - 诗豪小筑'
+  mainHtml = `<article class="post-full">
+<h1>诗文不存在</h1>
+<p class="meta">请从<a href="${ROOT}/posts/index.html">诗文列表</a>进入。</p>
+</article>`
+  renderPage(ROOT, '文章', mainHtml)
+} else {
+  document.title = post.title + ' - 诗豪小筑'
+  const comments = DATA.comments.filter(c => c.postId === post.id)
+  mainHtml = `<article class="post-full">
+${renderPostFull(ROOT, post, comments)}
+</article>`
+  renderPage(ROOT, '文章', mainHtml)
+}
+</script>
+
+</body>
+</html>

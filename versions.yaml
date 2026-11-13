@@ -780,11 +780,29 @@
   runtime: static
   edit_run: true
 
+- slug: blog/login
+  title: 登录与门禁
+  summary: 登录页校验账号写 cookie 跳转后台，renderAdminPage 中央门禁把没登录的访问送回登录页——登录态就是一颗 cookie
+  seq: 11
+  parent: admin
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/login-state
+  title: 登录态显示与退出
+  summary: 导航读 cookie 分支渲染：登录后显示当前用户与退出登录，未登录显示登录链接，退出即删 cookie
+  seq: 12
+  parent: login
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: blog/store-sync
   title: 本地存储
   summary: lib/store.js 接管全部数据读写：localStorage 同步实现、自增 id、首次加载播种；前台评论表单就此兑现
-  seq: 11
-  parent: admin
+  seq: 13
+  parent: login-state
   entry: index.html
   runtime: static
   edit_run: true
@@ -792,7 +810,7 @@
 - slug: blog/store-rest
   title: REST 接口
   summary: store.js 同名接口换 fetch 调 REST（模拟接口可真连 json-server）：调用方全改 async/await，create/update/destroy 三动作就此兑现
-  seq: 12
+  seq: 14
   parent: store-sync
   entry: index.html
   runtime: shim
@@ -801,7 +819,7 @@
 - slug: blog/spa
   title: 单页应用
   summary: hash 路由合体前后台：一张路由表收编全部页面，站点地图由路由表生成，URL 收敛为 #/posts/1 形态
-  seq: 13
+  seq: 15
   parent: store-rest
   entry: index.html
   runtime: shim

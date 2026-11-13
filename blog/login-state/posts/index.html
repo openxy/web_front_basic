@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>诗文列表 - 诗豪小筑</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+<script src="../lib/data.js"></script>
+<script src="../lib/auth.js"></script>
+<script src="../lib/view.js"></script>
+<script>
+const ROOT = '..'
+const PAGE_SIZE = 5
+
+const params = new URLSearchParams(location.search)
+const state = {
+  category: params.get('category') || '',
+  tag: params.get('tag') || '',
+  sort: 'pinned',
+  page: 0,
+}
+
+function currentPosts() {
+  let posts = state.sort === 'pinned' ? sortPosts(DATA.posts) : [...DATA.posts].sort((a, b) => b.year - a.year)
+  if (state.category) posts = posts.filter(p => p.category === state.category)
+  if (state.tag) posts = posts.filter(p => p.tags.includes(state.tag))
+  return posts
+}
+
+function renderList() {
+  const posts = currentPosts()
+  const pages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE))
+  if (state.page > pages - 1) state.page = pages - 1
+  const slice = posts.slice(state.page * PAGE_SIZE, (state.page + 1) * PAGE_SIZE)
+
+  let label
+  if (state.category) label = `分类「${state.category}」共 ${posts.length} 篇`
+  else if (state.tag) label = `标签「${state.tag}」共 ${posts.length} 篇`
+  else label = `共 ${posts.length} 篇`
+
+  document.getElementById('post-summary').textContent = label
+  document.getElementById('post-toc').innerHTML = posts.length
+    ? slice.map(p => renderPostRow(ROOT, p)).join('\n')
+    : '<li>没有符合条件的诗文。</li>'
+  document.getElementById('pager').innerHTML = renderPager(pages, state.page)
+}
+
+function optionList(values, current) {
+  return ['<option value="">全部</option>']
+    .concat(values.map(v => `<option value="${v}" ${v === current ? 'selected' : ''}>${v}</option>`))
+    .join('\n')
+}
+
+renderPage(ROOT, '文章', `<section class="post-index">
+<h1>诗文列表</h1>
+<p class="meta" id="post-summary"></p>
+<div class="filter-bar">
+<label>分类 <select id="filter-category">${optionList(['诗', '词', '文'], state.category)}</select></label>
+<label>标签 <select id="filter-tag">${optionList(Object.keys(tagCounts(DATA.posts)), state.tag)}</select></label>
+<label>排序 <select id="filter-sort">
+<option value="pinned" selected>置顶优先</option>
+<option value="year" ${state.sort === 'year' ? 'selected' : ''}>纯按年代</option>
+</select></label>
+</div>
+<ul class="post-toc" id="post-toc"></ul>
+<nav class="pager" id="pager"></nav>
+</section>`)
+
+document.getElementById('filter-category').addEventListener('change', e => {
+  state.category = e.target.value
+  state.page = 0
+  renderList()
+})
+
+document.getElementById('filter-tag').addEventListener('change', e => {
+  state.tag = e.target.value
+  state.page = 0
+  renderList()
+})
+
+document.getElementById('filter-sort').addEventListener('change', e => {
+  state.sort = e.target.value
+  state.page = 0
+  renderList()
+})
+
+// 页码按钮动态生成，监听器挂在容器上（事件委托），新增删除按钮都不用重挂
+document.getElementById('pager').addEventListener('click', e => {
+  const page = e.target.dataset.page
+  if (page !== undefined) {
+    state.page = Number(page)
+    renderList()
+  }
+})
+
+renderList()
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>登录 - 诗豪小筑</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+<script src="lib/data.js"></script>
+<script src="lib/store.js"></script>
+<script src="lib/auth.js"></script>
+<script src="lib/view.js"></script>
+<script>
+const ROOT = '.'
+
+const params = new URLSearchParams(location.search)
+if (params.has('logout')) clearCookie('user')
+
+renderPage(ROOT, '登录', `<section class="post-index">
+<h1>登录</h1>
+<p class="meta">演示账号：admin / admin。登录后进入后台管理。</p>
+<form id="login-form" class="login-form" method="post" action="#">
+<fieldset>
+<legend>站长登录</legend>
+<p class="error" id="login-error"></p>
+<p><label for="username">用户名</label> <input id="username" name="username" type="text" required></p>
+<p><label for="password">密码</label> <input id="password" name="password" type="password" required></p>
+<p><button type="submit">登录</button></p>
+</fieldset>
+</form>
+</section>`)
+
+document.getElementById('login-form').addEventListener('submit', e => {
+  e.preventDefault()
+  const form = e.target
+  if (form.username.value === 'admin' && form.password.value === 'admin') {
+    setCookie('user', form.username.value)
+    location.href = ROOT + '/admin/posts/index.html'
+  } else {
+    document.getElementById('login-error').textContent = '用户名或密码不对'
+  }
+})
+</script>
+
+</body>
+</html>

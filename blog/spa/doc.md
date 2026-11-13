@@ -7,7 +7,7 @@
 ```
 #/              #/posts        #/posts/1       #/posts/new
 #/posts/1/edit  #/tags         #/about         #/sitemap
-#/admin/posts   #/admin/comments
+#/admin/posts   #/admin/comments  #/login
 ```
 
 三拍：
@@ -28,6 +28,7 @@
 - 复制 `#/posts/6` 到新标签页：直接落在《酬乐天》——URL 即状态
 - 后台新建诗文保存：跳回 `#/admin/posts`，列表已含新篇；再点它的标题，前台详情页立即可见
 - `#/sitemap`：全站路由一页看全，它由路由表生成
+- 登录也是一条路由：`#/login` 登录成功进 `#/admin/posts`，导航亮出「当前用户 · 退出登录」；退出链接带 `?logout=1` 回到登录页。未登录硬闯 `#/admin/posts`，门禁在渲染前就把 hash 改回 `#/login`——此时控制台会有一条 `addEventListener` 报错：视图被门禁送走后，页面脚本后半段还要找那些没渲染出来的元素。页面行为不受影响，报错源于「门禁先送走页面、脚本后半段照常执行」的时序，不必修
 
 ## 思考
 

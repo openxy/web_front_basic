@@ -13,11 +13,17 @@ function siteNav(ROOT, active) {
   const lis = items
     .map(([href, label]) => `<li><a class="${label === active ? 'active' : ''}" href="${ROOT}/${href}">${label}</a></li>`)
     .join('\n')
+  // 登录态入口：cookie 里有人就亮身份，没人就给登录链接
+  const user = getCookie('user')
+  const authItem = user
+    ? `<li>当前用户：${user} · <a href="${ROOT}/login.html?logout=1">退出登录</a></li>`
+    : `<li><a href="${ROOT}/login.html">登录</a></li>`
   return `<header class="site-header">
 <p class="site-title">诗豪小筑</p>
 <nav>
 <ul>
 ${lis}
+${authItem}
 </ul>
 </nav>
 </header>`
@@ -144,7 +150,7 @@ function adminNav(ROOT, active) {
   const items = [
     ['admin/posts/index.html', '博文管理'],
     ['admin/comments/index.html', '评论管理'],
-    ['../index.html', '返回前台'],
+    ['index.html', '返回前台'],
   ]
   const lis = items
     .map(([href, label]) => `<li><a class="${label === active ? 'active' : ''}" href="${ROOT}/${href}">${label}</a></li>`)
@@ -161,6 +167,11 @@ ${lis}
 
 // 后台站点模板：无侧栏、单栏工整版式，与前台站点模板同源不同形
 function renderAdminPage(ROOT, active, mainHtml) {
+  // 门禁：后台页共用本模板，cookie 里没有登录用户就一律先送回登录页
+  if (!getCookie('user')) {
+    location.href = `${ROOT}/login.html`
+    return
+  }
   document.body.innerHTML = `${adminNav(ROOT, active)}
 
 <main class="admin-main">

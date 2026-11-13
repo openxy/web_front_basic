@@ -10,9 +10,10 @@
 <body>
 <script src="../../lib/data.js"></script>
 <script src="../../lib/store.js"></script>
+<script src="../../lib/auth.js"></script>
 <script src="../../lib/view.js"></script>
 <script>
-const ROOT = '..'
+const ROOT = '../..'
 
 function renderTable() {
   document.getElementById('admin-summary').textContent = `共 ${fetchResource('comment').length} 条`

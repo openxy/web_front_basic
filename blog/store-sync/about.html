@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>关于 - 诗豪小筑</title>
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -17,6 +17,7 @@
 <li><a href="tags/index.html">标签</a></li>
 <li><a class="active" href="about.html">关于</a></li>
 <li><a href="sitemap.html">站点地图</a></li>
+<li><a href="login.html">登录</a></li>
 </ul>
 </nav>
 </header>
@@ -51,5 +52,13 @@
 
 <footer class="site-footer"><p>诗豪小筑 · 个人博客演示项目 · 内容取材刘禹锡诗文</p></footer>
 
+<script src="lib/auth.js"></script>
+<script>
+// 登录态入口：与模板版 siteNav 同一分支（本页导航是静态骨架，脚本补挂登录项）
+const user = getCookie('user')
+document.querySelector('.site-header nav ul').insertAdjacentHTML('beforeend', user
+  ? '<li>当前用户：' + user + ' · <a href="login.html?logout=1">退出登录</a></li>'
+  : '<li><a href="login.html">登录</a></li>')
+</script>
 </body>
 </html>

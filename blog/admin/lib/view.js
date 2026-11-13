@@ -143,7 +143,7 @@ function adminNav(ROOT, active) {
   const items = [
     ['admin/posts/index.html', '博文管理'],
     ['admin/comments/index.html', '评论管理'],
-    ['../index.html', '返回前台'],
+    ['index.html', '返回前台'],
   ]
   const lis = items
     .map(([href, label]) => `<li><a class="${label === active ? 'active' : ''}" href="${ROOT}/${href}">${label}</a></li>`)

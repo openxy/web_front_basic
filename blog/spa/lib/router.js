@@ -7,6 +7,7 @@ const ROUTES = [
   { path: /^\/posts\/([\w-]+)\/edit$/, sample: '/posts/1/edit', title: '编辑诗文', active: '文章', view: viewPostEdit },
   { path: /^\/posts\/([\w-]+)$/, sample: '/posts/1', title: '诗文', active: '文章', view: viewPostShow },
   { path: /^\/tags$/, sample: '/tags', title: '标签', active: '标签', view: viewTags },
+  { path: /^\/login$/, sample: '/login', title: '登录', active: '登录', view: viewLogin },
   { path: /^\/admin\/posts$/, sample: '/admin/posts', title: '博文管理', active: '博文管理', view: viewAdminPosts },
   { path: /^\/admin\/comments$/, sample: '/admin/comments', title: '评论管理', active: '评论管理', view: viewAdminComments },
   { path: /^\/about$/, sample: '/about', title: '关于本站', active: '关于', view: viewAbout },
@@ -42,11 +43,35 @@ async function route() {
 
 async function viewHome(params) {
   const posts = await fetchResource('post')
+  const state = { page: 0 }
+
+  function renderList() {
+    const sorted = sortPosts(posts)
+    const pages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE))
+    if (state.page > pages - 1) state.page = pages - 1
+    const slice = sorted.slice(state.page * PAGE_SIZE, (state.page + 1) * PAGE_SIZE)
+
+    document.getElementById('post-list').innerHTML = slice.map(p => renderPostCard(ROOT, p)).join('\n\n')
+    document.getElementById('pager').innerHTML = renderPager(pages, state.page)
+  }
+
   await renderPage(ROOT, '首页', `<section class="post-list">
 <h1>最新诗文</h1>
 
-${sortPosts(posts).map(p => renderPostCard(ROOT, p)).join('\n\n')}
+<div id="post-list"></div>
+<nav class="pager" id="pager"></nav>
 </section>`)
+
+  // 页码按钮动态生成，监听器挂在容器上（事件委托），新增删除按钮都不用重挂
+  document.getElementById('pager').addEventListener('click', e => {
+    const page = e.target.dataset.page
+    if (page !== undefined) {
+      state.page = Number(page)
+      renderList()
+    }
+  })
+
+  renderList()
 }
 
 async function viewPosts(params) {
@@ -200,6 +225,38 @@ async function viewAbout(params) {
 
 <p>本站以他的诗文为内容样本，演示一个个人博客从静态页面到单页应用的完整演进，详见<a href="#/sitemap">站点地图</a>。</p>
 </section>`)
+}
+
+// ---- 登录 ----
+
+async function viewLogin(params) {
+  // 退出链接带 logout 参数进门：先删 cookie，导航随后按未登录渲染
+  if (params.has('logout')) clearCookie('user')
+
+  await renderPage(ROOT, '登录', `<section class="post-index">
+<h1>登录</h1>
+<p class="meta">演示账号：admin / admin。登录后进入后台管理。</p>
+<form id="login-form" class="login-form" method="post" action="#">
+<fieldset>
+<legend>站长登录</legend>
+<p class="error" id="login-error"></p>
+<p><label for="username">用户名</label> <input id="username" name="username" type="text" required></p>
+<p><label for="password">密码</label> <input id="password" name="password" type="password" required></p>
+<p><button type="submit">登录</button></p>
+</fieldset>
+</form>
+</section>`)
+
+  document.getElementById('login-form').addEventListener('submit', e => {
+    e.preventDefault()
+    const form = e.target
+    if (form.username.value === 'admin' && form.password.value === 'admin') {
+      setCookie('user', form.username.value)
+      location.hash = '#/admin/posts'
+    } else {
+      document.getElementById('login-error').textContent = '用户名或密码不对'
+    }
+  })
 }
 
 // ---- 后台视图 ----
