@@ -1,377 +1,5 @@
 # 前端教学案例集 · 版本清单（结构元信息唯一事实源；正文 {slug}/doc.md、代码 {slug}/）
 
-- slug: blog/first-page
-  title: 首页骨架
-  summary: 一页语义 HTML 起站：内容类型 Post 先行分字段，header/nav/article/footer 区块就位，样式与链接都是后续版本的钩子
-  seq: 1
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/site-pages
-  title: 多页成型
-  summary: 首页/列表/详情/标签/关于五类页面互跳，评论表单控件就位；平铺文件名是 URL 布局的反面初稿
-  seq: 2
-  parent: first-page
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/resource-urls
-  title: 资源式 URL 布局
-  summary: 平铺页面按资源归位：posts/index、posts/show-N、tags/index、assets 三件套，站点地图页随布局立起来
-  seq: 3
-  parent: site-pages
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/css-basics
-  title: 全站样式
-  summary: 一份共享 style.css 上妆：选择器、文字与颜色、盒子模型；置顶高亮与区块样式此刻亮起来
-  seq: 4
-  parent: resource-urls
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/layout
-  title: 布局与区块
-  summary: 主栏加分类导航侧栏成两栏版式：grid 布局登场，站点头/底/导航与分类菜单按区块归位
-  seq: 5
-  parent: css-basics
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/responsive
-  title: 响应式
-  summary: 一段媒体查询完成移动适配：窄屏两栏叠一栏、侧栏移后——纯样式层改版，HTML 字节不动
-  seq: 6
-  parent: layout
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/js-render
-  title: 数据与渲染
-  summary: 诗文与评论进 lib/data.js，首页/列表/详情/标签改由 JS 渲染：十个详情文件并成一个模板页
-  seq: 7
-  parent: responsive
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/js-template
-  title: 页面模板
-  summary: 站点模板与内容模板收进 lib/view.js：页面=模板+数据，各页脚本瘦身为取数与拼装
-  seq: 8
-  parent: js-render
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/js-events
-  title: 事件与交互
-  summary: 列表页长出筛选条与分页器：事件监听注册、事件委托，状态驱动局部重渲
-  seq: 9
-  parent: js-template
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/admin
-  title: 后台管理
-  summary: admin/ 后台三页（博文列表·新建/编辑表单·评论管理）：表格增删改置顶、搜索筛选、表单校验，访客与站长的站点模板分野
-  seq: 10
-  parent: js-events
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/store-sync
-  title: 本地存储
-  summary: lib/store.js 接管全部数据读写：localStorage 同步实现、自增 id、首次加载播种；前台评论表单就此兑现
-  seq: 11
-  parent: admin
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: blog/store-rest
-  title: REST 接口
-  summary: store.js 同名接口换 fetch 调 REST（模拟接口可真连 json-server）：调用方全改 async/await，create/update/destroy 三动作就此兑现
-  seq: 12
-  parent: store-sync
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: blog/spa
-  title: 单页应用
-  summary: hash 路由合体前后台：一张路由表收编全部页面，站点地图由路由表生成，URL 收敛为 #/posts/1 形态
-  seq: 13
-  parent: store-rest
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: css-layout/table
-  title: 表格布局
-  summary: 拿 table 语义标记凑页面骨架：等高列天然成立，代价是 HTML 堆满语义无关的标记
-  seq: 1
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/table-css
-  title: 表格特性回归样式层
-  summary: display:table 让普通 div 享用等高列：布局特性回到样式层，语义不再被污染
-  seq: 2
-  parent: table
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/float
-  title: 浮动多栏
-  summary: 块元素浮动后横向排站：百分比栏宽加 clearfix 兜底，塌陷机理见 position 案例浮动四部曲
-  seq: 3
-  parent: table-css
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/grid-960
-  title: 栅格系统 960
-  summary: 「占 N 列」预先算成类名，声明式表达布局；底层仍是 float，固定 960px 不响应
-  seq: 4
-  parent: float
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/flex
-  title: 弹性容器与十字轴
-  summary: 页头变 flex 容器：justify-content 管主轴分布、align-items 管交叉轴置中，两行声明清掉传统对齐难题
-  seq: 5
-  parent: grid-960
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/flex-item
-  title: 子项弹性分配
-  summary: 子项 flex 按份分剩余空间：3:1 恒成立，960 的固定宽度与 clearfix 一并退场
-  seq: 6
-  parent: flex
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/grid
-  title: 网格轨道
-  summary: grid-template-columns 定义列轨道，fr 按份分配、gap 即 gutter，二维网格成为语言原生能力
-  seq: 7
-  parent: flex-item
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: css-layout/grid-span
-  title: 跨格落位与整页网格
-  summary: grid-column/grid-row 声明格线范围：页头页脚横跨、侧栏纵跨，整页一张网格收束演化史
-  seq: 8
-  parent: grid
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: form-ajax/plain
-  title: 传统表单
-  summary: 无 JS 的原生提交：整页跳转、等服务器返回新页——案例出发点
-  seq: 1
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: form-ajax/submit
-  title: 接管表单提交
-  summary: preventDefault 拦下整页跳转，FormData 一把收齐表单值，页面内展示提交数据
-  seq: 2
-  parent: plain
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: form-ajax/ajax-post
-  title: fetch 发送 JSON
-  summary: 表单数据 JSON 序列化后 POST 给接口，应答回显页面；原课程 238 行 XHR 序列化收敛成三行
-  seq: 3
-  parent: submit
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: form-ajax/async
-  title: async/await 与异步
-  summary: 慢网络下计数器照走、表单照打字：await 让出控制权页面不卡；.then 回调链改写为 async/await
-  seq: 4
-  parent: ajax-post
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: form-ajax/validate
-  title: 提交前校验
-  summary: 用户名正则、两次密码一致，行内红字提示取代 alert，校验不过请求不发出
-  seq: 5
-  parent: async
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: form-ajax/name-check
-  title: 失焦查重
-  summary: 用户名一失焦就 GET /users/名字：200 已占用、404 可用——把「提交等报错」压成「填完就知道」
-  seq: 6
-  parent: validate
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: gallery/render
-  title: 动态渲染
-  summary: 数据驱动渲染起步：数据数组拼成 HTML 一次性放进容器，元素是运行时诞生的；渲染完逐个直接绑定，初始图点击高亮
-  seq: 1
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: gallery/load-more-fail
-  title: 加载更多事故
-  summary: 点击「加载更多」追加新图，新图却点不动——直接绑定只覆盖绑定那一刻已存在的元素，事故运行可见
-  seq: 2
-  parent: render
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: gallery/delegation
-  title: 事件委托修复
-  summary: 监听器从每张图挪到容器一个：冒泡接住所有点击，event.target + closest 甄别目标——加载更多的新图天然被覆盖
-  seq: 3
-  parent: load-more-fail
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: gallery/modal-preview
-  title: 模态框预览
-  summary: 委托扩展：点图开大图模态框、点遮罩自身关闭——e.target 区分点的是谁；点赞按钮甄别后早返回，不打架
-  seq: 4
-  parent: delegation
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: js-async/sync-block
-  title: 同步长任务
-  summary: 单线程事故现场：忙等 3 秒冻住时钟与整个页面——阻塞即主线程被占死
-  seq: 1
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: js-async/timer-yield
-  title: 定时器分片
-  summary: 长任务切成 50ms 小段，setTimeout 让出主线程——时钟照走、页面不冻
-  seq: 2
-  parent: sync-block
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: js-async/callback
-  title: 回调接续
-  summary: 分片函数收 onDone 参数，做完接着做下一步——三连任务嵌套成金字塔，错误处理每层一份
-  seq: 3
-  parent: timer-yield
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: js-async/promise
-  title: Promise 链
-  summary: 未来结果对象化：三连任务从嵌套金字塔摊平成 then 链，错误处理一处 catch 收口
-  seq: 4
-  parent: callback
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: js-async/async-await
-  title: async-await
-  summary: 用同步的形状写异步：await 逐环等待接替 then 链，try/catch 一处收口
-  seq: 5
-  parent: promise
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: js-async/promise-all
-  title: 并行三连
-  summary: 互不依赖的任务不必排队：Promise.all 三路同时跑，串行 3 秒的活约 1 秒收束
-  seq: 6
-  parent: async-await
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: pcd/data
-  title: 索引路径数据
-  summary: 省市区树编码成扁平键："0" 是省列表，"0_2" 是第 3 个省的城市，"0_2_1" 是其第 2 市的区县
-  seq: 1
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: pcd/onchange
-  title: onchange 联动
-  summary: 选省即取数填市：change 事件 + selectedIndex 拼键 "0_i"，两级下拉第一次联动起来
-  seq: 2
-  parent: data
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: pcd/cascade
-  title: 三级级联
-  summary: 填充按层级递推：任一级变化，从该级到末级全部重刷，区县随省市走
-  seq: 3
-  parent: onchange
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: pcd/widget
-  title: 封装成控件
-  summary: 三段过程代码收进 class PCD：构造器收数据与 id 列表，自己绑事件自己初始化，页面一行调用
-  seq: 4
-  parent: cascade
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: pcd/prompts
-  title: 提示项与索引偏移
-  summary: 每级先插「请选择」提示项，取数时 selectedIndex 减 1 修正——索引偏移是列表头插提示必付的小税
-  seq: 5
-  parent: widget
-  entry: index.html
-  runtime: static
-  edit_run: true
-
 - slug: position/static
   title: 静态定位
   summary: 文档流默认排布：block 独占一行、inline 依次右排，一切定位机制的基准形态
@@ -452,6 +80,77 @@
   runtime: static
   edit_run: true
 
+- slug: css-layout/table
+  title: 表格布局
+  summary: 拿 table 语义标记凑页面骨架：等高列天然成立，代价是 HTML 堆满语义无关的标记
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/table-css
+  title: 表格特性回归样式层
+  summary: display:table 让普通 div 享用等高列：布局特性回到样式层，语义不再被污染
+  seq: 2
+  parent: table
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/float
+  title: 浮动多栏
+  summary: 块元素浮动后横向排站：百分比栏宽加 clearfix 兜底，塌陷机理见 position 案例浮动四部曲
+  seq: 3
+  parent: table-css
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/grid-960
+  title: 栅格系统 960
+  summary: 「占 N 列」预先算成类名，声明式表达布局；底层仍是 float，固定 960px 不响应
+  seq: 4
+  parent: float
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/flex
+  title: 弹性容器与十字轴
+  summary: 页头变 flex 容器：justify-content 管主轴分布、align-items 管交叉轴置中，两行声明清掉传统对齐难题
+  seq: 5
+  parent: grid-960
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/flex-item
+  title: 子项弹性分配
+  summary: 子项 flex 按份分剩余空间：3:1 恒成立，960 的固定宽度与 clearfix 一并退场
+  seq: 6
+  parent: flex
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/grid
+  title: 网格轨道
+  summary: grid-template-columns 定义列轨道，fr 按份分配、gap 即 gutter，二维网格成为语言原生能力
+  seq: 7
+  parent: flex-item
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: css-layout/grid-span
+  title: 跨格落位与整页网格
+  summary: grid-column/grid-row 声明格线范围：页头页脚横跨、侧栏纵跨，整页一张网格收束演化史
+  seq: 8
+  parent: grid
+  entry: index.html
+  runtime: static
+  edit_run: true
+
 - slug: responsive/fixed
   title: 固定宽度
   summary: 960px 写死的栅格时代形态：窗口拖窄即出横向滚动条（承接 css-layout 骨架，响应式案例的起点）
@@ -514,110 +213,198 @@
   runtime: static
   edit_run: true
 
-- slug: restful/rest-get
-  title: GET 列表
-  summary: fetch GET /posts 拿资源集合渲染：URL 即资源地址、方法即意图、JSON 做表示
-  seq: 1
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: restful/rest-get-id
-  title: GET 单个资源
-  summary: 点条目 GET /posts/:id：路径参数定位单个资源，正文渲染进详情区
-  seq: 2
-  parent: rest-get
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: restful/rest-post
-  title: POST 新建
-  summary: 表单收集数据 JSON 序列化 POST /posts：id 由服务器生成，201 应答回新资源
-  seq: 3
-  parent: rest-get-id
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: restful/rest-put
-  title: PUT 全量更新
-  summary: 每条带「改」按钮：PUT /posts/:id 把整个对象送回服务器全量替换，200 应答
-  seq: 4
-  parent: rest-post
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: restful/rest-delete
-  title: DELETE 删除
-  summary: 每条带「删」按钮：DELETE /posts/:id 一发资源即逝，204 空应答——增删改查凑齐
-  seq: 5
-  parent: rest-put
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: restful/rest-error
-  title: 状态码与错误处理
-  summary: 查任意 id：404 走 res.ok 分支红字提示，网络异常归 try/catch——HTTP 状态码是唯一真相
-  seq: 6
-  parent: rest-delete
-  entry: index.html
-  runtime: shim
-  edit_run: true
-
-- slug: scope-closure/global-clash
-  title: 全局撞名
-  summary: 两个脚本各自 var count：全局命名空间只有一张桌子，计数器每秒自己涨——事故现场
+- slug: gallery/render
+  title: 动态渲染
+  summary: 数据驱动渲染起步：数据数组拼成 HTML 一次性放进容器，元素是运行时诞生的；渲染完逐个直接绑定，初始图点击高亮
   seq: 1
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: scope-closure/iife
-  title: IIFE 私有作用域
-  summary: 立即执行函数把各自变量包进函数内部，全局桌面清空，撞名事故消失
+- slug: gallery/load-more-fail
+  title: 加载更多事故
+  summary: 点击「加载更多」追加新图，新图却点不动——直接绑定只覆盖绑定那一刻已存在的元素，事故运行可见
   seq: 2
-  parent: global-clash
+  parent: render
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: scope-closure/closure-counter
-  title: 闭包计数器
-  summary: createCounter 工厂返回的函数攥着自己的 n：外界不可直达、调用之间不失联，撞名从根上不可能
+- slug: gallery/delegation
+  title: 事件委托修复
+  summary: 监听器从每张图挪到容器一个：冒泡接住所有点击，event.target + closest 甄别目标——加载更多的新图天然被覆盖
   seq: 3
-  parent: iife
+  parent: load-more-fail
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: scope-closure/loop-trap
-  title: 循环陷阱
-  summary: var 循环给三个按钮挂监听，点谁都显示 3：闭包捕获的是同一个绑定，工具变陷阱
+- slug: gallery/modal-preview
+  title: 模态框预览
+  summary: 委托扩展：点图开大图模态框、点遮罩自身关闭——e.target 区分点的是谁；点赞按钮甄别后早返回，不打架
   seq: 4
-  parent: closure-counter
+  parent: delegation
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: scope-closure/let-fix
-  title: let 一词修复
-  summary: var 改 let 一词：每轮循环独立绑定，三个按钮各自报出自己的编号
+- slug: table-row/event-bind
+  title: 事件绑定
+  summary: addEventListener 把「增加一行」接上行为：事件对象上 preventDefault 拦下锚点跳转，insertAdjacentHTML 把拼好的一行塞进 tbody
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/delegation
+  title: 事件委托
+  summary: 删除不再逐个绑：监听器只挂 tbody 一个，靠事件冒泡接住所有行的点击，event.target + closest 定位链接与所属行，新增行天然被覆盖
+  seq: 2
+  parent: table-row/event-bind
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/propagation
+  title: 事件传播三阶段
+  summary: 委托的底层机制拆开看：捕获→目标→冒泡一条固定路线，三层嵌套色块逐段打日志，stopPropagation 可在任何一层截停
+  seq: 2.01
+  parent: delegation
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/element-replace
+  title: 元素替换
+  summary: 委托扩展到数据单元格：closest 甄别可编辑 td，replaceWith 原地换成带原文字的 input 并聚焦——位置不变，身份变了
+  seq: 3
+  parent: table-row/delegation
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/dynamic-event
+  title: 动态事件
+  summary: blur 不冒泡、委托不了，失焦提交只能在 input 诞生那刻动态绑上；空值拦下红字提示，提交换回 td——点击走委托，无需重绑
+  seq: 4
+  parent: table-row/element-replace
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: table-row/keyboard-event
+  title: 键盘事件
+  summary: keydown 里判 event.key，回车主动 blur() 制造一次真失焦——触发路两条，提交路仍只有 blur 一条
   seq: 5
-  parent: loop-trap
+  parent: table-row/dynamic-event
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: scope-closure/module
-  title: ES 模块作用域
-  summary: script 标 type=module 文件即作用域：IIFE 外壳拆除，撞名在语言层面不可能，收束全案
-  seq: 6
-  parent: let-fix
+- slug: js-async/sync-block
+  title: 同步长任务
+  summary: 单线程事故现场：忙等 3 秒冻住时钟与整个页面——阻塞即主线程被占死
+  seq: 1
   entry: index.html
   runtime: static
+  edit_run: true
+
+- slug: js-async/timer-yield
+  title: 定时器分片
+  summary: 长任务切成 50ms 小段，setTimeout 让出主线程——时钟照走、页面不冻
+  seq: 2
+  parent: sync-block
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/callback
+  title: 回调接续
+  summary: 分片函数收 onDone 参数，做完接着做下一步——三连任务嵌套成金字塔，错误处理每层一份
+  seq: 3
+  parent: timer-yield
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/promise
+  title: Promise 链
+  summary: 未来结果对象化：三连任务从嵌套金字塔摊平成 then 链，错误处理一处 catch 收口
+  seq: 4
+  parent: callback
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/async-await
+  title: async-await
+  summary: 用同步的形状写异步：await 逐环等待接替 then 链，try/catch 一处收口
+  seq: 5
+  parent: promise
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: js-async/promise-all
+  title: 并行三连
+  summary: 互不依赖的任务不必排队：Promise.all 三路同时跑，串行 3 秒的活约 1 秒收束
+  seq: 6
+  parent: async-await
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: form-ajax/plain
+  title: 传统表单
+  summary: 无 JS 的原生提交：整页跳转、等服务器返回新页——案例出发点
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: form-ajax/submit
+  title: 接管表单提交
+  summary: preventDefault 拦下整页跳转，FormData 一把收齐表单值，页面内展示提交数据
+  seq: 2
+  parent: plain
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: form-ajax/ajax-post
+  title: fetch 发送 JSON
+  summary: 表单数据 JSON 序列化后 POST 给接口，应答回显页面；原课程 238 行 XHR 序列化收敛成三行
+  seq: 3
+  parent: submit
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: form-ajax/async
+  title: async/await 与异步
+  summary: 慢网络下计数器照走、表单照打字：await 让出控制权页面不卡；.then 回调链改写为 async/await
+  seq: 4
+  parent: ajax-post
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: form-ajax/validate
+  title: 提交前校验
+  summary: 用户名正则、两次密码一致，行内红字提示取代 alert，校验不过请求不发出
+  seq: 5
+  parent: async
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: form-ajax/name-check
+  title: 失焦查重
+  summary: 用户名一失焦就 GET /users/名字：200 已占用、404 可用——把「提交等报错」压成「填完就知道」
+  seq: 6
+  parent: validate
+  entry: index.html
+  runtime: shim
   edit_run: true
 
 - slug: spa/file
@@ -754,56 +541,268 @@
   runtime: static
   edit_run: false
 
-- slug: table-row/event-bind
-  title: 事件绑定
-  summary: addEventListener 把「增加一行」接上行为：事件对象上 preventDefault 拦下锚点跳转，insertAdjacentHTML 把拼好的一行塞进 tbody
+- slug: restful/rest-get
+  title: GET 列表
+  summary: fetch GET /posts 拿资源集合渲染：URL 即资源地址、方法即意图、JSON 做表示
+  seq: 1
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-get-id
+  title: GET 单个资源
+  summary: 点条目 GET /posts/:id：路径参数定位单个资源，正文渲染进详情区
+  seq: 2
+  parent: rest-get
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-post
+  title: POST 新建
+  summary: 表单收集数据 JSON 序列化 POST /posts：id 由服务器生成，201 应答回新资源
+  seq: 3
+  parent: rest-get-id
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-put
+  title: PUT 全量更新
+  summary: 每条带「改」按钮：PUT /posts/:id 把整个对象送回服务器全量替换，200 应答
+  seq: 4
+  parent: rest-post
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-delete
+  title: DELETE 删除
+  summary: 每条带「删」按钮：DELETE /posts/:id 一发资源即逝，204 空应答——增删改查凑齐
+  seq: 5
+  parent: rest-put
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: restful/rest-error
+  title: 状态码与错误处理
+  summary: 查任意 id：404 走 res.ok 分支红字提示，网络异常归 try/catch——HTTP 状态码是唯一真相
+  seq: 6
+  parent: rest-delete
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: scope-closure/global-clash
+  title: 全局撞名
+  summary: 两个脚本各自 var count：全局命名空间只有一张桌子，计数器每秒自己涨——事故现场
   seq: 1
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: table-row/delegation
-  title: 事件委托
-  summary: 删除不再逐个绑：监听器只挂 tbody 一个，靠事件冒泡接住所有行的点击，event.target + closest 定位链接与所属行，新增行天然被覆盖
+- slug: scope-closure/iife
+  title: IIFE 私有作用域
+  summary: 立即执行函数把各自变量包进函数内部，全局桌面清空，撞名事故消失
   seq: 2
-  parent: table-row/event-bind
+  parent: global-clash
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: table-row/propagation
-  title: 事件传播三阶段
-  summary: 委托的底层机制拆开看：捕获→目标→冒泡一条固定路线，三层嵌套色块逐段打日志，stopPropagation 可在任何一层截停
-  seq: 2.01
-  parent: delegation
-  entry: index.html
-  runtime: static
-  edit_run: true
-
-- slug: table-row/element-replace
-  title: 元素替换
-  summary: 委托扩展到数据单元格：closest 甄别可编辑 td，replaceWith 原地换成带原文字的 input 并聚焦——位置不变，身份变了
+- slug: scope-closure/closure-counter
+  title: 闭包计数器
+  summary: createCounter 工厂返回的函数攥着自己的 n：外界不可直达、调用之间不失联，撞名从根上不可能
   seq: 3
-  parent: table-row/delegation
+  parent: iife
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: table-row/dynamic-event
-  title: 动态事件
-  summary: blur 不冒泡、委托不了，失焦提交只能在 input 诞生那刻动态绑上；空值拦下红字提示，提交换回 td——点击走委托，无需重绑
+- slug: scope-closure/loop-trap
+  title: 循环陷阱
+  summary: var 循环给三个按钮挂监听，点谁都显示 3：闭包捕获的是同一个绑定，工具变陷阱
   seq: 4
-  parent: table-row/element-replace
+  parent: closure-counter
   entry: index.html
   runtime: static
   edit_run: true
 
-- slug: table-row/keyboard-event
-  title: 键盘事件
-  summary: keydown 里判 event.key，回车主动 blur() 制造一次真失焦——触发路两条，提交路仍只有 blur 一条
+- slug: scope-closure/let-fix
+  title: let 一词修复
+  summary: var 改 let 一词：每轮循环独立绑定，三个按钮各自报出自己的编号
   seq: 5
-  parent: table-row/dynamic-event
+  parent: loop-trap
   entry: index.html
   runtime: static
   edit_run: true
 
+- slug: scope-closure/module
+  title: ES 模块作用域
+  summary: script 标 type=module 文件即作用域：IIFE 外壳拆除，撞名在语言层面不可能，收束全案
+  seq: 6
+  parent: let-fix
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/data
+  title: 索引路径数据
+  summary: 省市区树编码成扁平键："0" 是省列表，"0_2" 是第 3 个省的城市，"0_2_1" 是其第 2 市的区县
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/onchange
+  title: onchange 联动
+  summary: 选省即取数填市：change 事件 + selectedIndex 拼键 "0_i"，两级下拉第一次联动起来
+  seq: 2
+  parent: data
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/cascade
+  title: 三级级联
+  summary: 填充按层级递推：任一级变化，从该级到末级全部重刷，区县随省市走
+  seq: 3
+  parent: onchange
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/widget
+  title: 封装成控件
+  summary: 三段过程代码收进 class PCD：构造器收数据与 id 列表，自己绑事件自己初始化，页面一行调用
+  seq: 4
+  parent: cascade
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: pcd/prompts
+  title: 提示项与索引偏移
+  summary: 每级先插「请选择」提示项，取数时 selectedIndex 减 1 修正——索引偏移是列表头插提示必付的小税
+  seq: 5
+  parent: widget
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/first-page
+  title: 首页骨架
+  summary: 一页语义 HTML 起站：内容类型 Post 先行分字段，header/nav/article/footer 区块就位，样式与链接都是后续版本的钩子
+  seq: 1
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/site-pages
+  title: 多页成型
+  summary: 首页/列表/详情/标签/关于五类页面互跳，评论表单控件就位；平铺文件名是 URL 布局的反面初稿
+  seq: 2
+  parent: first-page
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/resource-urls
+  title: 资源式 URL 布局
+  summary: 平铺页面按资源归位：posts/index、posts/show-N、tags/index、assets 三件套，站点地图页随布局立起来
+  seq: 3
+  parent: site-pages
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/css-basics
+  title: 全站样式
+  summary: 一份共享 style.css 上妆：选择器、文字与颜色、盒子模型；置顶高亮与区块样式此刻亮起来
+  seq: 4
+  parent: resource-urls
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/layout
+  title: 布局与区块
+  summary: 主栏加分类导航侧栏成两栏版式：grid 布局登场，站点头/底/导航与分类菜单按区块归位
+  seq: 5
+  parent: css-basics
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/responsive
+  title: 响应式
+  summary: 一段媒体查询完成移动适配：窄屏两栏叠一栏、侧栏移后——纯样式层改版，HTML 字节不动
+  seq: 6
+  parent: layout
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/js-render
+  title: 数据与渲染
+  summary: 诗文与评论进 lib/data.js，首页/列表/详情/标签改由 JS 渲染：十个详情文件并成一个模板页
+  seq: 7
+  parent: responsive
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/js-template
+  title: 页面模板
+  summary: 站点模板与内容模板收进 lib/view.js：页面=模板+数据，各页脚本瘦身为取数与拼装
+  seq: 8
+  parent: js-render
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/js-events
+  title: 事件与交互
+  summary: 列表页长出筛选条与分页器：事件监听注册、事件委托，状态驱动局部重渲
+  seq: 9
+  parent: js-template
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/admin
+  title: 后台管理
+  summary: admin/ 后台三页（博文列表·新建/编辑表单·评论管理）：表格增删改置顶、搜索筛选、表单校验，访客与站长的站点模板分野
+  seq: 10
+  parent: js-events
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/store-sync
+  title: 本地存储
+  summary: lib/store.js 接管全部数据读写：localStorage 同步实现、自增 id、首次加载播种；前台评论表单就此兑现
+  seq: 11
+  parent: admin
+  entry: index.html
+  runtime: static
+  edit_run: true
+
+- slug: blog/store-rest
+  title: REST 接口
+  summary: store.js 同名接口换 fetch 调 REST（模拟接口可真连 json-server）：调用方全改 async/await，create/update/destroy 三动作就此兑现
+  seq: 12
+  parent: store-sync
+  entry: index.html
+  runtime: shim
+  edit_run: true
+
+- slug: blog/spa
+  title: 单页应用
+  summary: hash 路由合体前后台：一张路由表收编全部页面，站点地图由路由表生成，URL 收敛为 #/posts/1 形态
+  seq: 13
+  parent: store-rest
+  entry: index.html
+  runtime: shim
+  edit_run: true
